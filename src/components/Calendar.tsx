@@ -13,8 +13,8 @@ const daysInMonth = [...Array(numberOfDays).keys()].map(i => i + 1);
 
 export const Calendar = ({ }) => {
     return (
-        <div className="">
-            <header className="flex justify-center">
+        <div className="flex flex-col items-center ">
+            <header>
                 <h1 className="text-3xl">
                     {month}
                 </h1>
