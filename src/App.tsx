@@ -1,9 +1,8 @@
-import React from 'react'
-import { DatePicker } from './components/DatePicker';
+import { Calendar } from './components/Calendar';
 import './App.css';
 export default function App() {
   return (
-    < DatePicker />
+    < Calendar />
   );
 }
 
