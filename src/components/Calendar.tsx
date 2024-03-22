@@ -18,17 +18,6 @@ daysInMonth.map((day) => monthWithColors.set(day, ""));
 export const Calendar = () => {
     const [color, setColor] = useState<Map<number, string>>(monthWithColors);
 
-    function handleClick(date: number) {
-        let currentMap: Map<number, string> = color;
-        console.log("CurrentMap: ", currentMap)
-        color.get(date) == ""
-            ? (currentMap.set(date, "bg-red-400"))
-            : (currentMap.set(date, ""))
-        setColor(currentMap);
-        console.log("Clicked date!")
-        console.log("Color map after set color: ", color)
-    }
-
     return (
         <div className="flex flex-col items-center">
             <header>
@@ -44,8 +33,8 @@ export const Calendar = () => {
                     <button key={emptyDayIndex} className="w-1/7 border border-black"></button>
                 ))}
 
-                {daysInMonth.map((thisDate) => {
-                    return <CalenderDate date={thisDate} color={color.get(thisDate) ?? ""} onDateClick={() => handleClick(thisDate)} key={thisDate}/>
+                {[...color.keys()].map((thisDate) => {
+                    return <CalenderDate date={thisDate} color={color} key={thisDate} setState={setColor}/>
                 })
                 }
             </div>
