@@ -6,6 +6,7 @@ import CalenderDate from './CalenderDate';
 const year = getYear(new Date());
 const monthAsNumber = getMonth(new Date());
 const month = format(new Date(), 'MMMM');
+const today = parseInt(format(new Date(), 'd'));
 const firstWeekDay = parseInt(format(new Date(year, monthAsNumber, 1), 'i')) - 1;
 const numberOfDays = getDaysInMonth(new Date());
 const daysBeforeMonth = [...Array(firstWeekDay).keys()].map(i => i + 1);
@@ -17,6 +18,17 @@ daysInMonth.map((day) => monthWithColors.set(day, ""));
 
 export const Calendar = () => {
     const [color, setColor] = useState<Map<number, string>>(monthWithColors);
+    const [selectedDate, setSelectedDate] = useState<number>(today);
+
+    const ChangeColor = (date: number) => {
+        let currentMap: Map<number, string> = color;
+    
+        color.get(date) == ""
+            ? (currentMap.set(date, "bg-red-400"))
+            : (currentMap.set(date, ""))
+    
+        setColor(new Map(currentMap));
+    }
 
     return (
         <div className="flex flex-col items-center">
@@ -34,7 +46,7 @@ export const Calendar = () => {
                 ))}
 
                 {[...color.keys()].map((thisDate) => {
-                    return <CalenderDate date={thisDate} color={color} key={thisDate} setState={setColor}/>
+                    return <CalenderDate date={thisDate} color={color} key={thisDate} setState={setSelectedDate}/>
                 })
                 }
             </div>
