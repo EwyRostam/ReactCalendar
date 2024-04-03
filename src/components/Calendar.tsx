@@ -17,14 +17,12 @@ let monthWithColors: Map<number, string> = new Map();
 daysInMonth.map((day) => monthWithColors.set(day, ""));
 
 
-export const Calendar = () => {
+export function Calendar() {
     const [color, setColor] = useState<Map<number, string>>(monthWithColors);
     const [selectedDate, setSelectedDate] = useState<number>(today);
 
     const ChangeColor = (mood: string) => {
-        setSelectedDate(selectedDate);
-        let currentMap: Map<number, string> = color;
-
+        const currentMap = color;
         color.get(selectedDate) != mood
             ? (currentMap.set(selectedDate, mood))
             : (currentMap.set(selectedDate, ""))
@@ -49,12 +47,12 @@ export const Calendar = () => {
                     ))}
 
                     {[...color.keys()].map((thisDate) => {
-                        return <CalenderDate date={thisDate} color={color} key={thisDate} handleClick={setSelectedDate} />
+                        return <CalenderDate date={thisDate} color={color} key={thisDate} handleClick={setSelectedDate} selected={selectedDate} />
                     })
                     }
                 </div>
             </div>
-            <Feeling handleClick={ChangeColor}/>
+            <Feeling handleClick={ChangeColor} />
         </>
     )
 }
