@@ -1,19 +1,11 @@
 import { useState } from 'react';
 import { Weekdays } from '../configs/Weekdays'
-import { getDaysInMonth, format, getMonth, getYear } from "date-fns";
 import CalenderDate from './CalenderDate';
 import Feeling from './Feeling';
+import { daysBeforeMonth, daysInMonth, month, today } from '../helpers/DateHelpers';
 
-const year = getYear(new Date());
-const monthAsNumber = getMonth(new Date());
-const month = format(new Date(), 'MMMM');
-const today = parseInt(format(new Date(), 'd'));
-const firstWeekDay = parseInt(format(new Date(year, monthAsNumber, 1), 'i')) - 1;
-const numberOfDays = getDaysInMonth(new Date());
-const daysBeforeMonth = [...Array(firstWeekDay).keys()].map(i => i + 1);
-const daysInMonth = [...Array(numberOfDays).keys()].map(i => i + 1);
+
 let monthWithColors: Map<number, string> = new Map();
-
 daysInMonth.map((day) => monthWithColors.set(day, ""));
 
 
