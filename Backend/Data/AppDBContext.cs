@@ -19,7 +19,7 @@ namespace Backend.Data
                 .HasMany(e => e.Emotions)
                 .WithMany(e => e.Days)
                 .UsingEntity(
-                    "PostTag",
+                    "EmotionDay",
                     l => l.HasOne(typeof(Emotion)).WithMany().HasForeignKey("EmotionsId").HasPrincipalKey(nameof(Emotion.Id)),
                     r => r.HasOne(typeof(Day)).WithMany().HasForeignKey("DaysId").HasPrincipalKey(nameof(Day.Id)),
                     j => j.HasKey("DaysId", "EmotionsId"));
