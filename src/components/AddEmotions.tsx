@@ -1,11 +1,11 @@
 import { SyntheticEvent, useRef } from "react";
-import Emotion from "./Emotion";
+import { Feeling, createEmotion } from "../api/Api";
 
 type CustomFormValues = {
     content: { value: string };
     value: { value: string };
     opposite: { value: string };
-    isWanted: { value: Boolean };
+    isWanted: { value: boolean };
 }
 
 
@@ -17,10 +17,12 @@ export default function AddEmotion() {
     const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
         const { content, value, opposite, isWanted } = e.target as typeof e.target & CustomFormValues;
-        console.log(content);
-        console.log(value);
-        console.log(opposite);
-        console.log(isWanted);
+        const emotion = content.value;
+        const positiveOrNegative = value.value;
+        const oppositeEmotion = opposite.value;
+        const wanted = isWanted.value;
+        const feeling : Feeling = {emotion, positiveOrNegative, oppositeEmotion, wanted}
+        createEmotion(feeling);
         return <button className="border border-black rounded m-1 px-1 bg-green-400 hover:bg-green-500">{content.value}</button>
 
     }
