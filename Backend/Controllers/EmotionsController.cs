@@ -1,4 +1,5 @@
 using Backend.Models;
+using Backend.Models.DTOs;
 using Backend.Models.Enteties;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,19 +14,29 @@ namespace Backend.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateEmotion(Emotion emotion)
+        public IActionResult CreateEmotion(EmotionRequest emotionReq)
         {
-            if (!Emotions.Any(feeling => feeling.Content == emotion.Opposite.Content))
+            var oppositeEmotion = Emotions.FirstOrDefault(feeling => feeling.Content == emotionReq.Opposite);
+
+            Emotion emotion = new Emotion()
             {
-                var oppositeEmotion = new Emotion()
+                Content = emotionReq.Content,
+                Value = emotionReq.Value,
+                Opposite = oppositeEmotion!
+            };
+
+            if (oppositeEmotion == null)
+            {
+                oppositeEmotion = new Emotion()
                 {
-                    Content = emotion.Opposite.Content,
-                    Value = emotion.Value > 0 ? -1 : 1,
-                    OppositeId = emotion.Id,
+                    Content = emotionReq.Opposite,
+                    Value = emotionReq.Value > 0 ? -1 : 1,
                     Opposite = emotion,
                 };
                 Emotions.Add(oppositeEmotion);
             }
+
+
             Emotions.Add(emotion);
             return Ok();
         }
