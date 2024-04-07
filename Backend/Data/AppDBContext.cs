@@ -29,7 +29,7 @@ namespace Backend.Data
 
             modelBuilder.Entity<DayEmotion>()
             .HasOne(de => de.Day)
-            .WithMany(d => d.Emotions)
+            .WithMany()
             .HasForeignKey(de => de.DayId);
 
             modelBuilder.Entity<DayEmotion>()
