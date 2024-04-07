@@ -16,13 +16,27 @@ namespace Backend.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Day>()
-                .HasMany(e => e.Emotions)
-                .WithMany(e => e.Days)
-                .UsingEntity(
-                    "EmotionDay",
-                    l => l.HasOne(typeof(Emotion)).WithMany().HasForeignKey("EmotionsId").HasPrincipalKey(nameof(Emotion.Id)),
-                    r => r.HasOne(typeof(Day)).WithMany().HasForeignKey("DaysId").HasPrincipalKey(nameof(Day.Id)),
-                    j => j.HasKey("DaysId", "EmotionsId"));
+                .HasOne(d => d.Relationship)
+                .WithMany(r => r.Days)
+                .HasForeignKey(d => d.RelationshipId);
+
+            modelBuilder.Entity<Emotion>()
+                .HasMany(e => e.Relationships)
+                .WithMany(r => r.WantedEmotions);
+
+            modelBuilder.Entity<DayEmotion>()
+                .HasKey(de => new {de.DayId, de.EmotionId});
+
+            modelBuilder.Entity<DayEmotion>()
+            .HasOne(de => de.Day)
+            .WithMany(d => d.Emotions)
+            .HasForeignKey(de => de.DayId);
+
+            modelBuilder.Entity<DayEmotion>()
+            .HasOne(de => de.Emotion)
+            .WithMany()
+            .HasForeignKey(de => de.EmotionId);
+
         }
     }
 
