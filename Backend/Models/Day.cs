@@ -5,8 +5,9 @@ namespace Backend.Models
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public int Score { get; set; }
-        public List<EmotionDay> EmotionDays { get; } = [];
-        public List<Emotion> Emotions { get; } = [];
+        public int RelationshipId { get; set; }
+        public required Relationship Relationship {get; set;}
+        public required ICollection<Emotion> Emotions {get; set;}
 
     }
 }
