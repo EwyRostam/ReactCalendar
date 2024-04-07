@@ -14,7 +14,7 @@ namespace Backend.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateEmotion(EmotionRequest emotionReq)
+        public ActionResult<Emotion> CreateEmotion(EmotionRequest emotionReq)
         {
             var oppositeEmotion = Emotions.FirstOrDefault(feeling => feeling.Content == emotionReq.Opposite);
 
@@ -38,7 +38,8 @@ namespace Backend.Controllers
 
 
             Emotions.Add(emotion);
-            return Ok();
+            return CreatedAtAction(nameof(emotion), new { id = emotion.Id }, emotion);
+
         }
 
         [HttpGet("{id}")]
