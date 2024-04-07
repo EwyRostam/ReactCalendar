@@ -1,4 +1,4 @@
-namespace Backend.Models
+namespace Backend.Models.Enteties
 {
     public class Day
     {
