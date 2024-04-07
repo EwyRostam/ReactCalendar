@@ -25,17 +25,17 @@ namespace Backend.Data
                 .WithMany(r => r.WantedEmotions);
 
             modelBuilder.Entity<DayEmotion>()
-                .HasKey(de => new {de.DayId, de.EmotionId});
+                .HasKey(de => new { de.DayId, de.EmotionId });
 
             modelBuilder.Entity<DayEmotion>()
-            .HasOne(de => de.Day)
-            .WithMany()
-            .HasForeignKey(de => de.DayId);
+                .HasOne(de => de.Day)
+                .WithMany()
+                .HasForeignKey(de => de.DayId);
 
             modelBuilder.Entity<DayEmotion>()
-            .HasOne(de => de.Emotion)
-            .WithMany()
-            .HasForeignKey(de => de.EmotionId);
+                .HasOne(de => de.Emotion)
+                .WithMany()
+                .HasForeignKey(de => de.EmotionId);
 
         }
     }
