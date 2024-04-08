@@ -3,6 +3,8 @@ using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
+var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 var config = new ConfigurationBuilder()
 .AddJsonFile("appsettings.json", false, true)
@@ -10,6 +12,15 @@ var config = new ConfigurationBuilder()
 .Build();
 
 // Add services to the container.
+builder.Services.AddCors(options => 
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+    policy =>
+    {
+        policy.WithOrigins("*");
+    });
+});
+
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(config.GetConnectionString("AppDBContext") ?? throw new InvalidOperationException("Connection string 'AppDBContext' not found.")));
 builder.Services.AddControllers();
@@ -27,6 +38,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 
