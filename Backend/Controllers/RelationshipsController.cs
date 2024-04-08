@@ -9,7 +9,7 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class RelationshipsController : ControllerBase
     {
-         private readonly AppDBContext _context;
+        private readonly AppDBContext _context;
 
         public RelationshipsController(AppDBContext context)
         {
@@ -19,7 +19,7 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Relationship>> CreateRelationship(Relationship relationship)
         {
-            if(await _context.Relationships.AnyAsync(rel => rel.Name == relationship.Name))
+            if (await _context.Relationships.AnyAsync(rel => rel.Name == relationship.Name))
             {
                 return BadRequest();
             }
@@ -41,7 +41,19 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Relationship>>> GetAllRelationships()
         {
-           return await _context.Relationships.ToListAsync();
+            return await _context.Relationships.ToListAsync();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRelationship(int id)
+        {
+            var relationship = await _context.Relationships.FirstOrDefaultAsync(relationship => relationship.Id == id);
+            if (relationship != null)
+            {
+                _context.Relationships.Remove(relationship);
+                await _context.SaveChangesAsync();
+            }
+            return NoContent();
         }
     }
 }
