@@ -19,3 +19,8 @@ export const createEmotion = async ({emotion, oppositeEmotion, positiveOrNegativ
     const response = await (await fetch(URL_BASE, { body, method, headers })).json()
     return response;
 }
+
+export const getAllEmotions = async (): Promise<Feeling[]> => {
+    const result = await fetch(URL_BASE).then(result => result.json())
+    return result as Feeling[];
+}

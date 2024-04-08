@@ -1,12 +1,14 @@
-import {StrictMode} from 'react'
+import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { routeTree } from './routeTree.gen.ts'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import './index.css'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
-const router = createRouter({routeTree})
+const router = createRouter({ routeTree })
+const queryClient = new QueryClient();
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -17,8 +19,10 @@ declare module '@tanstack/react-router' {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
     <TanStackRouterDevtools router={router} />
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
   </StrictMode>,
 )
