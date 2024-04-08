@@ -48,7 +48,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Emotion> GetEmotion(string id)
+        public ActionResult<Emotion> GetEmotion(int id)
         {
             var feeling = Emotions.FirstOrDefault(feeling => feeling.Id == id);
             return feeling == null ? NoContent() : feeling;
