@@ -16,6 +16,11 @@ namespace Backend.Controllers
         [HttpPost]
         public ActionResult<Emotion> CreateEmotion(EmotionRequest emotionReq)
         {
+            if(Emotions.Any(feeling => feeling.Content == emotionReq.Content))
+            {
+                return BadRequest();
+            }
+            
             var oppositeEmotion = Emotions.FirstOrDefault(feeling => feeling.Content == emotionReq.Opposite);
 
             Emotion emotion = new Emotion()
