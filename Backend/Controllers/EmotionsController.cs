@@ -38,7 +38,7 @@ namespace Backend.Controllers
 
 
             Emotions.Add(emotion);
-            return CreatedAtAction(nameof(emotion), new { id = emotion.Id }, emotion);
+            return CreatedAtAction(nameof(GetEmotion), new { id = emotion.Id }, emotion);
 
         }
 
