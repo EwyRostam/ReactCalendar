@@ -1,11 +1,17 @@
+using System.Reflection;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+var config = new ConfigurationBuilder()
+.AddJsonFile("appsettings.json", false, true)
+.AddUserSecrets(Assembly.GetExecutingAssembly(), true)
+.Build();
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("AppDBContext") ?? throw new InvalidOperationException("Connection string 'CRMContext' not found.")));
+    options.UseSqlServer(config.GetConnectionString("AppDBContext") ?? throw new InvalidOperationException("Connection string 'AppDBContext' not found.")));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
