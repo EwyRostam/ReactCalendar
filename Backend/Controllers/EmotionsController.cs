@@ -59,5 +59,12 @@ namespace Backend.Controllers
             var feeling = await _context.Emotions.FirstOrDefaultAsync(feeling => feeling.Id == id);
             return feeling == null ? NoContent() : feeling;
         }
+
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Emotion>>> GetAllEmotions()
+        {
+           return await _context.Emotions.ToListAsync();
+        }
     }
 }
