@@ -1,3 +1,4 @@
+using Backend.Data;
 using Backend.Models.DTOs;
 using Backend.Models.Enteties;
 using Microsoft.AspNetCore.Mvc;
@@ -8,19 +9,22 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class EmotionsController : ControllerBase
     {
+        private readonly AppDBContext _context;
 
-        private static List<Emotion> Emotions = [];
-
+        public EmotionsController(AppDBContext context)
+        {
+            _context = context;
+        }
 
         [HttpPost]
         public ActionResult<Emotion> CreateEmotion(EmotionRequest emotionReq)
         {
-            if(Emotions.Any(feeling => feeling.Content == emotionReq.Content))
+            if(_context.Emotions.Any(feeling => feeling.Content == emotionReq.Content))
             {
                 return BadRequest();
             }
             
-            var oppositeEmotion = Emotions.FirstOrDefault(feeling => feeling.Content == emotionReq.Opposite);
+            var oppositeEmotion = _context.Emotions.FirstOrDefault(feeling => feeling.Content == emotionReq.Opposite);
 
             Emotion emotion = new Emotion()
             {
@@ -37,11 +41,11 @@ namespace Backend.Controllers
                     Value = emotionReq.Value > 0 ? -1 : 1,
                     Opposite = emotion.Content,
                 };
-                Emotions.Add(oppositeEmotion);
+                _context.Emotions.Add(oppositeEmotion);
             }
 
 
-            Emotions.Add(emotion);
+            _context.Emotions.Add(emotion);
             return CreatedAtAction(nameof(GetEmotion), new { id = emotion.Id }, emotion);
 
         }
@@ -49,7 +53,7 @@ namespace Backend.Controllers
         [HttpGet("{id}")]
         public ActionResult<Emotion> GetEmotion(int id)
         {
-            var feeling = Emotions.FirstOrDefault(feeling => feeling.Id == id);
+            var feeling = _context.Emotions.FirstOrDefault(feeling => feeling.Id == id);
             return feeling == null ? NoContent() : feeling;
         }
     }
