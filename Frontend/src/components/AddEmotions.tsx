@@ -2,10 +2,9 @@ import { SyntheticEvent, useRef } from "react";
 import { Feeling, createEmotion } from "../api/Api";
 
 type CustomFormValues = {
-    content: { value: string };
-    value: { value: string };
-    opposite: { value: string };
-    isWanted: { value: boolean };
+    emotion: { value: string };
+    positiveOrNegative: { value: number };
+    oppositeEmotion: { value: string };
 }
 
 
@@ -16,15 +15,13 @@ export default function AddEmotion() {
 
     const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
-        const { content, value, opposite, isWanted } = e.target as typeof e.target & CustomFormValues;
-        const emotion = content.value;
-        const positiveOrNegative = value.value;
-        const oppositeEmotion = opposite.value;
-        const wanted = isWanted.value;
-        const feeling : Feeling = {emotion, positiveOrNegative, oppositeEmotion, wanted}
+        const { emotion, positiveOrNegative, oppositeEmotion } = e.target as typeof e.target & CustomFormValues;
+        const content = emotion.value;
+        const value = positiveOrNegative.value;
+        const opposite = oppositeEmotion.value;
+        const feeling : Feeling = {content, value, opposite}
         createEmotion(feeling);
-        return <button className="border border-black rounded m-1 px-1 bg-green-400 hover:bg-green-500">{content.value}</button>
-
+        console.log("Feeling to post: ",feeling)
     }
 
     return (
@@ -32,18 +29,18 @@ export default function AddEmotion() {
 
             <form onSubmit={handleSubmit} className="flex flex-col size-96 border border-black">
                 <label htmlFor="content">Add a feeling</label>
-                <input id="content" type="text" placeholder="Feeling" className="border border-black" />
+                <input id="emotion" type="text" placeholder="Feeling" className="border border-black" />
                 <label htmlFor="opposite">What is the opposite feeling?</label>
-                <input id="opposite" type="text" placeholder="Opposite feeling" className="border border-black" />
+                <input id="oppositeEmotion" type="text" placeholder="Opposite feeling" className="border border-black" />
                 <label htmlFor="">
-                    <input id="" type="radio" />
+                    <input id="positiveOrNegative" value={1} type="radio" />
                     Positive
                 </label>
                 <label htmlFor="">
-                    <input type="radio" />
+                    <input value={-1} type="radio" />
                     Negative
                 </label>
-                <input type="submit" className="border border-black" />
+                <input id="positiveOrNegative" type="submit" className="border border-black" />
             </form>
         </section>
     )

@@ -20,7 +20,7 @@ export default function Index() {
       <div>
         {isLoading && <p>Loading...</p>}
         {isError && <p>No feelings found!</p>}
-        {emotions!.map(feeling => <p>{feeling.content}</p>)}
+        {emotions && emotions!.map(feeling => <p>{feeling.content}</p>)}
       </div>
     </>
   )
