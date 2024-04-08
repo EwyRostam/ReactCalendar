@@ -1,19 +1,17 @@
 export type Feeling = {
-    emotion: string;
-    oppositeEmotion: string;
-    positiveOrNegative: string;
-    wanted: boolean;
+    content: string;
+    value: number;
+    opposite: string;
 }
 
-const URL_BASE = "";
+const URL_BASE = "http://localhost:5236/Emotions";
 const headers = {'Content-type': "application/json; charset=UTF-8"}
 
-export const createEmotion = async ({emotion, oppositeEmotion, positiveOrNegative, wanted} :Feeling ): Promise<Feeling> => {
+export const createEmotion = async ({content, opposite, value} :Feeling ): Promise<Feeling> => {
     const body = JSON.stringify({
-        emotion: emotion,
-        oppositeEmotion: oppositeEmotion,
-        positiveOrNegative: positiveOrNegative,
-        wanted: wanted
+        content: content,
+        opposite: opposite,
+        value: value
     })
     const method = 'POST'
     const response = await (await fetch(URL_BASE, { body, method, headers })).json()

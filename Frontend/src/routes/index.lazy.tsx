@@ -1,19 +1,26 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import AddEmotion from '../components/AddEmotions'
 import { getAllEmotions } from '../api/Api'
+import {useQuery } from 'react-query'
 
 export const Route = createLazyFileRoute('/')({
   component: Index,
 })
 
-function Index() {
-const emotions = getAllEmotions();
+
+
+export default function Index() {
+  const { data: emotions, isLoading, isError } = useQuery('feelings', getAllEmotions)
+
+  console.log("Emotions array", emotions)
 
   return (
     <>
-      <AddEmotion/>
+      <AddEmotion />
       <div>
-      {emotions.Map(feeling => <p>{feeling}</p>)}
+        {isLoading && <p>Loading...</p>}
+        {isError && <p>No feelings found!</p>}
+        {/* {emotions!.map(feeling => <p>{feeling.emotion}</p>)} */}
       </div>
     </>
   )
