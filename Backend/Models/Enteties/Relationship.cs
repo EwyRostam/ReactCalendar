@@ -1,3 +1,5 @@
+using Backend.Models.DTOs;
+
 namespace Backend.Models.Enteties
 {
     public class Relationship

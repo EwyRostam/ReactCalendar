@@ -1,4 +1,5 @@
 using Backend.Data;
+using Backend.Models.DTOs;
 using Backend.Models.Enteties;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +18,29 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Relationship>> CreateRelationship(Relationship relationship)
+        public async Task<ActionResult<Relationship>> CreateRelationship(RelationshipRequest relationshipReq)
         {
-            if (await _context.Relationships.AnyAsync(rel => rel.Name == relationship.Name))
+            if (await _context.Relationships.AnyAsync(rel => rel.Name == relationshipReq.Name))
             {
                 return BadRequest();
             }
+
+            var wantedEmotions = new List<Emotion>();
+
+            foreach (var emotion in relationshipReq.WantedEmotions)
+            {
+                var emotionToAdd = await _context.Emotions.FirstOrDefaultAsync(feeling => feeling.Content == emotion.Content);
+                if (emotionToAdd != null)
+                {
+                    wantedEmotions.Add(emotionToAdd);
+                }
+            }
+
+            var relationship = new Relationship()
+            {
+                Name = relationshipReq.Name,
+                WantedEmotions = wantedEmotions
+            };
 
             await _context.Relationships.AddAsync(relationship);
             await _context.SaveChangesAsync();
