@@ -9,28 +9,30 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class EmotionsController : ControllerBase
     {
-        private readonly AppDBContext _context;
+        // private readonly AppDBContext _context;
 
-        public EmotionsController(AppDBContext context)
-        {
-            _context = context;
-        }
+        // public EmotionsController(AppDBContext context)
+        // {
+        //     _context = context;
+        // }
+
+        private static List<Emotion> Emotions = [];
 
         [HttpPost]
         public ActionResult<Emotion> CreateEmotion(EmotionRequest emotionReq)
         {
-            if(_context.Emotions.Any(feeling => feeling.Content == emotionReq.Content))
+            if(Emotions.Any(feeling => feeling.Content == emotionReq.Content))
             {
                 return BadRequest();
             }
             
-            var oppositeEmotion = _context.Emotions.FirstOrDefault(feeling => feeling.Content == emotionReq.Opposite);
+            var oppositeEmotion = Emotions.FirstOrDefault(feeling => feeling.Content == emotionReq.Opposite);
 
             Emotion emotion = new Emotion()
             {
                 Content = emotionReq.Content,
                 Value = emotionReq.Value,
-                Opposite = oppositeEmotion!.Content
+                Opposite = ""
             };
 
             if (oppositeEmotion == null)
@@ -41,11 +43,12 @@ namespace Backend.Controllers
                     Value = emotionReq.Value > 0 ? -1 : 1,
                     Opposite = emotion.Content,
                 };
-                _context.Emotions.Add(oppositeEmotion);
+                Emotions.Add(oppositeEmotion);
             }
+            emotion.Opposite = oppositeEmotion.Content;
 
 
-            _context.Emotions.Add(emotion);
+            Emotions.Add(emotion);
             return CreatedAtAction(nameof(GetEmotion), new { id = emotion.Id }, emotion);
 
         }
@@ -53,7 +56,7 @@ namespace Backend.Controllers
         [HttpGet("{id}")]
         public ActionResult<Emotion> GetEmotion(int id)
         {
-            var feeling = _context.Emotions.FirstOrDefault(feeling => feeling.Id == id);
+            var feeling = Emotions.FirstOrDefault(feeling => feeling.Id == id);
             return feeling == null ? NoContent() : feeling;
         }
     }
