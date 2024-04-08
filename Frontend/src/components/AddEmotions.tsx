@@ -1,4 +1,4 @@
-import { SyntheticEvent, useRef } from "react";
+import { SyntheticEvent} from "react";
 import { Feeling, createEmotion } from "../api/Api";
 
 type CustomFormValues = {
@@ -7,11 +7,7 @@ type CustomFormValues = {
     oppositeEmotion: { value: string };
 }
 
-
-
 export default function AddEmotion() {
-
-    const feeling = useRef<HTMLInputElement>
 
     const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
