@@ -2,9 +2,9 @@ namespace Backend.Models.Enteties
 {
     public class DayEmotion
     {
-        public int DayId {get; set;}
+        public required string DayId {get; set;}
         public required Day Day {get; set;}
-        public int EmotionId {get; set;}
+        public required string EmotionId {get; set;}
         public required Emotion Emotion {get; set;}
     }
 }
