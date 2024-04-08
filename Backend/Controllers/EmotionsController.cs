@@ -2,6 +2,7 @@ using Backend.Data;
 using Backend.Models.DTOs;
 using Backend.Models.Enteties;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
@@ -9,24 +10,22 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class EmotionsController : ControllerBase
     {
-        // private readonly AppDBContext _context;
+        private readonly AppDBContext _context;
 
-        // public EmotionsController(AppDBContext context)
-        // {
-        //     _context = context;
-        // }
-
-        private static List<Emotion> Emotions = [];
+        public EmotionsController(AppDBContext context)
+        {
+            _context = context;
+        }
 
         [HttpPost]
-        public ActionResult<Emotion> CreateEmotion(EmotionRequest emotionReq)
+        public async Task<ActionResult<Emotion>> CreateEmotion(EmotionRequest emotionReq)
         {
-            if(Emotions.Any(feeling => feeling.Content == emotionReq.Content))
+            if(await _context.Emotions.AnyAsync(feeling => feeling.Content == emotionReq.Content))
             {
                 return BadRequest();
             }
             
-            var oppositeEmotion = Emotions.FirstOrDefault(feeling => feeling.Content == emotionReq.Opposite);
+            var oppositeEmotion = await _context.Emotions.FirstOrDefaultAsync(feeling => feeling.Content == emotionReq.Opposite);
 
             Emotion emotion = new Emotion()
             {
@@ -43,20 +42,21 @@ namespace Backend.Controllers
                     Value = emotionReq.Value > 0 ? -1 : 1,
                     Opposite = emotion.Content,
                 };
-                Emotions.Add(oppositeEmotion);
+                await _context.Emotions.AddAsync(oppositeEmotion);
             }
             emotion.Opposite = oppositeEmotion.Content;
 
 
-            Emotions.Add(emotion);
+            await _context.Emotions.AddAsync(emotion);
+            await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetEmotion), new { id = emotion.Id }, emotion);
 
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Emotion> GetEmotion(int id)
+        public async Task<ActionResult<Emotion>> GetEmotion(int id)
         {
-            var feeling = Emotions.FirstOrDefault(feeling => feeling.Id == id);
+            var feeling = await _context.Emotions.FirstOrDefaultAsync(feeling => feeling.Id == id);
             return feeling == null ? NoContent() : feeling;
         }
     }
