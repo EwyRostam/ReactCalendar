@@ -1,4 +1,3 @@
-using Backend.Models;
 using Backend.Models.DTOs;
 using Backend.Models.Enteties;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +26,7 @@ namespace Backend.Controllers
             {
                 Content = emotionReq.Content,
                 Value = emotionReq.Value,
-                Opposite = oppositeEmotion!
+                Opposite = oppositeEmotion!.Content
             };
 
             if (oppositeEmotion == null)
@@ -36,7 +35,7 @@ namespace Backend.Controllers
                 {
                     Content = emotionReq.Opposite,
                     Value = emotionReq.Value > 0 ? -1 : 1,
-                    Opposite = emotion,
+                    Opposite = emotion.Content,
                 };
                 Emotions.Add(oppositeEmotion);
             }

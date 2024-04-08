@@ -19,17 +19,11 @@ namespace Backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Value = table.Column<int>(type: "int", nullable: false),
-                    OppositeId = table.Column<int>(type: "int", nullable: false)
+                    Opposite = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Emotions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Emotions_Emotions_OppositeId",
-                        column: x => x.OppositeId,
-                        principalTable: "Emotions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -37,7 +31,8 @@ namespace Backend.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -127,11 +122,6 @@ namespace Backend.Migrations
                 name: "IX_EmotionRelationship_WantedEmotionsId",
                 table: "EmotionRelationship",
                 column: "WantedEmotionsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Emotions_OppositeId",
-                table: "Emotions",
-                column: "OppositeId");
         }
 
         /// <inheritdoc />

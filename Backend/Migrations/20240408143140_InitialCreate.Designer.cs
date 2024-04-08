@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240408131759_InitialCreate")]
+    [Migration("20240408143140_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -61,15 +61,14 @@ namespace Backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OppositeId")
-                        .HasColumnType("int");
+                    b.Property<string>("Opposite")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Value")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OppositeId");
 
                     b.ToTable("Emotions");
                 });
@@ -81,6 +80,10 @@ namespace Backend.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -126,17 +129,6 @@ namespace Backend.Migrations
                         .IsRequired();
 
                     b.Navigation("Relationship");
-                });
-
-            modelBuilder.Entity("Backend.Models.Enteties.Emotion", b =>
-                {
-                    b.HasOne("Backend.Models.Enteties.Emotion", "Opposite")
-                        .WithMany()
-                        .HasForeignKey("OppositeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Opposite");
                 });
 
             modelBuilder.Entity("DayEmotion", b =>
