@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240408191410_UpdateRelationshipEntity")]
-    partial class UpdateRelationshipEntity
+    [Migration("20240409223312_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,10 +33,13 @@ namespace Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Date")
+                        .HasColumnType("int");
 
-                    b.Property<int>("RelationshipId")
+                    b.Property<int>("Month")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RelationshipId")
                         .HasColumnType("int");
 
                     b.Property<int>("Score")
@@ -124,9 +127,7 @@ namespace Backend.Migrations
                 {
                     b.HasOne("Backend.Models.Enteties.Relationship", "Relationship")
                         .WithMany("Days")
-                        .HasForeignKey("RelationshipId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RelationshipId");
 
                     b.Navigation("Relationship");
                 });
