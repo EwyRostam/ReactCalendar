@@ -4,12 +4,11 @@ import { Feeling } from "../api/EmotionsAPI";
 
 type Props = {
     emotions: Feeling[];
-    setArr?: React.Dispatch<React.SetStateAction<Feeling[]>>;
-    selectedArr?: Feeling[];
+    handleClick?: (feeling: Feeling, setVisibility: React.Dispatch<React.SetStateAction<string>>, visibility: string) => void
 }
 
 
-export default function RenderEmotions({emotions, setArr, selectedArr}: Props) {
+export default function RenderEmotions({emotions, handleClick}: Props) {
     const {isLoading, isError } = useGetEmotions();
 
     return (
@@ -17,7 +16,7 @@ export default function RenderEmotions({emotions, setArr, selectedArr}: Props) {
             {isLoading && <p>Loading...</p>}
             {isError && <p>No feelings found!</p>}
             {emotions && emotions!.map(feeling => 
-            <Emotion selectedArr={selectedArr} setArr={setArr} key={feeling.content} feeling={feeling}/>)}
+            <Emotion handleClick={handleClick} key={feeling.content} feeling={feeling}/>)}
         </div>
     )
 
