@@ -38,10 +38,11 @@ function Day() {
     <section className="flex flex-col items-center p-2 gap-2">
       <h1 className="text-3xl">{today} of {month}</h1>
       <h2 className="text-2xl">How did you feel today?</h2>
+      <SearchBar />
       <article className="border border-black rounded-md size-60">
         <RenderEmotions handleClick={onClickSelected} emotions={selectedEmotions} />
       </article>
-      <SearchBar />
+      <button className="btn btn-outline btn-success w-60">Submit</button>
       <RenderEmotions handleClick={onClickAll} emotions={emotions ?? []} />
     </section>
   )
