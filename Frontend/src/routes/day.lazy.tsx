@@ -33,10 +33,9 @@ function Day() {
     selected.slice(selected.indexOf(feeling))
   }
 
-  const date = today;
   const emotions = selectedEmotions;
 
-  const dayToCreate : DayType = {date, emotions};
+  const dayToCreate : DayType = {emotions};
 
 
   return (
