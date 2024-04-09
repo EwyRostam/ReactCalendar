@@ -5,7 +5,7 @@ namespace Backend.Models.Enteties
         public int Id { get; set;} 
         public DateTime Date { get; set; }
         public int Score { get; set; }
-        public required Relationship Relationship {get; set;}
+        public Relationship? Relationship {get; set;}
         public required ICollection<Emotion> Emotions {get; set;}
 
     }

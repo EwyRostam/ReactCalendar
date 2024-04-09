@@ -1,3 +1,7 @@
+using Backend.Data;
+using Backend.Models.Enteties;
+using Microsoft.AspNetCore.Mvc;
+
 namespace Backend.Controllers
 {
     [ApiController]
@@ -8,7 +12,7 @@ namespace Backend.Controllers
 
         private readonly AppDBContext _context;
 
-        public EmotionsController(AppDBContext context)
+        public DaysController(AppDBContext context)
         {
             _context = context;
         }
@@ -16,7 +20,7 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Day>> CreateDay()
         {
-            
+            return NoContent();
         }
     }
 }
