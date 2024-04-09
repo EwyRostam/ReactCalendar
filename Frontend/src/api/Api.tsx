@@ -20,5 +20,5 @@ export const createEmotion = async ({content, opposite, value} :Feeling ): Promi
 
 export const getAllEmotions = async (): Promise<Feeling[]> => {
     const result = await fetch(URL_BASE).then(result => result.json())
-    return result as Feeling[];
+    return result.$values as Feeling[];
 }
