@@ -1,5 +1,6 @@
 import { useQuery } from "react-query"
 import { getAllEmotions } from "../api/EmotionsAPI"
+import Emotion from "./Emotion"
 
 export default function RenderEmotions() {
     const { data: emotions, isLoading, isError } = useQuery('feelings', getAllEmotions)
@@ -8,7 +9,7 @@ export default function RenderEmotions() {
         <div>
             {isLoading && <p>Loading...</p>}
             {isError && <p>No feelings found!</p>}
-            {emotions && emotions!.map(feeling => <p key={feeling.content}>{feeling.content}</p>)}
+            {emotions && emotions!.map(feeling => <Emotion key={feeling.content} content={feeling.content}/>)}
         </div>
     )
 
