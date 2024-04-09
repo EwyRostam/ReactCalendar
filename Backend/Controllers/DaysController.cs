@@ -42,7 +42,20 @@ namespace Backend.Controllers
 
             await _context.AddAsync(dayToAdd);
             await _context.SaveChangesAsync();
-            return dayToAdd;
+            return CreatedAtAction(nameof(GetDay), new {id = dayToAdd.Id}, dayToAdd);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Day>> GetDay(int id)
+        {
+            var response = await _context.Days.FirstOrDefaultAsync(e => e.Id == id);
+
+            if(response == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(response);
         }
     }
 }
