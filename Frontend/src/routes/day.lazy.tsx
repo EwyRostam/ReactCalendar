@@ -2,12 +2,17 @@ import { createLazyFileRoute } from '@tanstack/react-router'
 import { month, today } from '../helpers/DateHelpers'
 import SearchBar from '../components/SearchBar'
 import RenderEmotions from '../components/RenderEmotions'
+import { useState } from 'react'
+import { Feeling } from '../api/EmotionsAPI'
 
 export const Route = createLazyFileRoute('/day')({
   component: Day,
 })
 
 function Day() {
+  const [selectedEmotions, setSelectedEmotions] = useState<Feeling[]>([])
+
+
   return (
     <section className="flex flex-col items-center p-2 gap-2">
       <h1 className="text-3xl">{today} of {month}</h1>

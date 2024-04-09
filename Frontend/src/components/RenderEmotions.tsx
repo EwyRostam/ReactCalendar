@@ -1,6 +1,8 @@
 import Emotion from "./Emotion"
 import { useGetEmotions } from "../hooks/useEmotions";
 
+
+
 export default function RenderEmotions() {
     const { data: emotions, isLoading, isError } = useGetEmotions();
 
@@ -9,7 +11,7 @@ export default function RenderEmotions() {
             {isLoading && <p>Loading...</p>}
             {isError && <p>No feelings found!</p>}
             {emotions && emotions!.map(feeling => 
-            <Emotion key={feeling.content} content={feeling.content} value={feeling.value}/>)}
+            <Emotion key={feeling.content} feeling={feeling}/>)}
         </div>
     )
 
