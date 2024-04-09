@@ -57,5 +57,11 @@ namespace Backend.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Day>>> GetAllDays()
+        {
+            return await _context.Days.ToListAsync();
+        }
     }
 }
