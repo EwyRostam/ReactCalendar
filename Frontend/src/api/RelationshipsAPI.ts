@@ -1,25 +1,23 @@
-import { Feeling } from "./EmotionsAPI";
 
 export type Relationship = {
     name: string;
-    wantedEmotions: Feeling[];
+    wantedEmotions: string[];
 }
 
 const URL_BASE = "http://localhost:5236/Relationships";
 const headers = {'Content-type': "application/json; charset=UTF-8"}
 
-export const createRelationship = async ({content, opposite, value} :Feeling ): Promise<Feeling> => {
+export const createRelationship = async ({name, wantedEmotions} :Relationship ): Promise<Relationship> => {
     const body = JSON.stringify({
-        content: content,
-        opposite: opposite,
-        value: value
+        name: name,
+        wantedEmotions: wantedEmotions
     })
     const method = 'POST'
     const response = await (await fetch(URL_BASE, { body, method, headers })).json()
     return response;
 }
 
-export const getAllEmotions = async (): Promise<Feeling[]> => {
+export const getAllRelationships = async (): Promise<Relationship[]> => {
     const result = await fetch(URL_BASE).then(result => result.json())
-    return result.$values as Feeling[];
+    return result.$values as Relationship[];
 }
