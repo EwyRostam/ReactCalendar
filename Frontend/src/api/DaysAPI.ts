@@ -1,14 +1,14 @@
 import { Feeling } from "./EmotionsAPI";
 
-export type Day = {
-    date: string;
+export type DayType = {
+    date: number;
     emotions: Feeling[];
 }
 
 const URL_BASE = "http://localhost:5236/Days";
 const headers = {'Content-type': "application/json; charset=UTF-8"}
 
-export const createEmotion = async ({date, emotions}: Day ): Promise<Day> => {
+export const createDay = async ({date, emotions}: DayType ): Promise<DayType> => {
     const body = JSON.stringify({
         date: date,
         emotions: emotions
@@ -18,7 +18,7 @@ export const createEmotion = async ({date, emotions}: Day ): Promise<Day> => {
     return response;
 }
 
-export const getAllEmotions = async (): Promise<Day[]> => {
+export const getAllDays = async (): Promise<DayType[]> => {
     const result = await fetch(URL_BASE).then(result => result.json())
-    return result.$values as Day[];
+    return result.$values as DayType[];
 }
