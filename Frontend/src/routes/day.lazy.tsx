@@ -23,7 +23,7 @@ function Day() {
         <RenderEmotions emotions={selectedEmotions}/>
       </article>
       <SearchBar/>   
-      <RenderEmotions setArr={setSelectedEmotions} emotions={emotions ?? []}/>
+      <RenderEmotions selectedArr={selectedEmotions} setArr={setSelectedEmotions} emotions={emotions ?? []}/>
     </section>
   )
 
