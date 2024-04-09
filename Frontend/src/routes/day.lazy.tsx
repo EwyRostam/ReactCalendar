@@ -7,9 +7,12 @@ export const Route = createLazyFileRoute('/day')({
 
 function Day() {
   return (
-    <section className="flex justify-center p-2">
+    <section className="flex flex-col items-center p-2">
       <h1 className="text-3xl">{today} of {month}</h1>
       <h2 className="text-2xl">How did you feel today?</h2>
+
+      
+
     </section>
   )
 
