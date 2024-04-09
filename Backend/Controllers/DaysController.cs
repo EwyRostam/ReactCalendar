@@ -36,6 +36,7 @@ namespace Backend.Controllers
             var dayToAdd = new Day()
             {
                 Date = dayReq.Date,
+                Month = dayReq.Month,
                 Emotions = emotions,
                 Score = score
             };
