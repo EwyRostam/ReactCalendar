@@ -1,6 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import AddEmotion from '../components/AddEmotions'
-import { getAllEmotions } from '../api/Api'
+import { getAllEmotions } from '../api/EmotionsAPI'
 import {useQuery } from 'react-query'
 
 export const Route = createLazyFileRoute('/')({

@@ -7,7 +7,7 @@ type CustomFormValues = {
     oppositeEmotion: { value: string };
 }
 
-export default function AddEmotion() {
+export default function AddRelationship() {
 
     const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
