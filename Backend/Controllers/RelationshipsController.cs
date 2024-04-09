@@ -29,7 +29,7 @@ namespace Backend.Controllers
 
             foreach (var emotion in relationshipReq.WantedEmotions)
             {
-                var emotionToAdd = await _context.Emotions.FirstOrDefaultAsync(feeling => feeling.Content == emotion.Content);
+                var emotionToAdd = await _context.Emotions.FirstOrDefaultAsync(feeling => feeling.Content == emotion);
                 if (emotionToAdd != null)
                 {
                     wantedEmotions.Add(emotionToAdd);
