@@ -1,10 +1,14 @@
 import Emotion from "./Emotion"
 import { useGetEmotions } from "../hooks/useEmotions";
+import { Feeling } from "../api/EmotionsAPI";
+
+type Props = {
+    emotions: Feeling[];
+}
 
 
-
-export default function RenderEmotions() {
-    const { data: emotions, isLoading, isError } = useGetEmotions();
+export default function RenderEmotions({emotions}: Props) {
+    const {isLoading, isError } = useGetEmotions();
 
     return (
         <div>
