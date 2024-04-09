@@ -26,13 +26,20 @@ function Day() {
     setVisibility(visibility);
   }
 
+  const onClickSelected = (feeling: Feeling, setVisibility: React.Dispatch<React.SetStateAction<string>>, visibility: string) => {
+    setSelectedEmotions(selected)
+    setVisibility(visibility)
+    selected.slice(selected.indexOf(feeling))
+
+  }
+
 
   return (
     <section className="flex flex-col items-center p-2 gap-2">
       <h1 className="text-3xl">{today} of {month}</h1>
       <h2 className="text-2xl">How did you feel today?</h2>
       <article className="border border-black rounded-md size-60">
-        <RenderEmotions emotions={selectedEmotions} />
+        <RenderEmotions handleClick={onClickSelected} emotions={selectedEmotions} />
       </article>
       <SearchBar />
       <RenderEmotions handleClick={onClickAll} emotions={emotions ?? []} />
