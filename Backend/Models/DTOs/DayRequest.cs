@@ -5,7 +5,7 @@ namespace Backend.Models.DTOs
     public record DayRequest
     (
         DateTime Date, 
-        List<Emotion> Emotions
+        List<EmotionRequest> Emotions
     );
    
 }
