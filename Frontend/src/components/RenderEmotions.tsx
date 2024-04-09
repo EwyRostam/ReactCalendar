@@ -1,9 +1,8 @@
-import { useQuery } from "react-query"
-import { getAllEmotions } from "../api/EmotionsAPI"
 import Emotion from "./Emotion"
+import { useGetEmotions } from "../hooks/useEmotions";
 
 export default function RenderEmotions() {
-    const { data: emotions, isLoading, isError } = useQuery('feelings', getAllEmotions)
+    const { data: emotions, isLoading, isError } = useGetEmotions();
 
     return (
         <div>
