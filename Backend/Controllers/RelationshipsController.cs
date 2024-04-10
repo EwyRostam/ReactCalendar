@@ -52,7 +52,9 @@ namespace Backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Relationship>> GetRelationship(int id)
         {
-            var relationship = await _context.Relationships.FirstOrDefaultAsync(relationship => relationship.Id == id);
+            var relationship = await _context.Relationships
+            .Include(r => r.WantedEmotions)
+            .FirstOrDefaultAsync(relationship => relationship.Id == id);
             return relationship == null ? NoContent() : relationship;
         }
 
@@ -60,13 +62,14 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Relationship>>> GetAllRelationships()
         {
-            return await _context.Relationships.ToListAsync();
+            return await _context.Relationships.Include(r => r.WantedEmotions).ToListAsync();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRelationship(int id)
         {
-            var relationship = await _context.Relationships.FirstOrDefaultAsync(relationship => relationship.Id == id);
+            var relationship = await _context.Relationships.Include(r => r.WantedEmotions)
+            .FirstOrDefaultAsync(relationship => relationship.Id == id);
             if (relationship != null)
             {
                 _context.Relationships.Remove(relationship);
