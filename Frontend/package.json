@@ -17,7 +17,8 @@
     "react-calendar": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-modern-calendar-datepicker": "^3.1.6",
-    "react-query": "^3.39.3"
+    "react-query": "^3.39.3",
+    "recharts": "^2.12.4"
   },
   "devDependencies": {
     "@tanstack/router-devtools": "^1.26.7",
