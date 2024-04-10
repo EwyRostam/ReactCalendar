@@ -1,34 +1,41 @@
 import { PureComponent } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
+type DayData = {
+  name: number;
+  MoodIndex: number;
+}
+
+
+
 const data = [
   {
     name: 'Page A',
-    pv: 2400,
+    MoodIndex: 2400,
   },
   {
     name: 'Page B',
-    pv: 1398,
+    MoodIndex: 1398,
   },
   {
     name: 'Page C',
-    pv: 9800,
+    MoodIndex: 9800,
   },
   {
     name: 'Page D',
-    pv: 3908,
+    MoodIndex: 3908,
   },
   {
     name: 'Page E',
-    pv: 4800,
+    MoodIndex: 4800,
   },
   {
     name: 'Page F',
-    pv: 3800,
+    MoodIndex: 3800,
   },
   {
     name: 'Page G',
-    pv: 4300,
+    MoodIndex: 4300,
   },
 ];
 
@@ -55,7 +62,7 @@ export default class EmotionChart extends PureComponent {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
+            <Line type="monotone" dataKey="MoodIndex" stroke="#8884d8" activeDot={{ r: 8 }} />
           </LineChart>
         </ResponsiveContainer>
       </section>
