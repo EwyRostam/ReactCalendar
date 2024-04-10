@@ -5,9 +5,7 @@ import { Feeling } from "../api/EmotionsAPI";
 type Props = {
     emotions: Feeling[];
     handleClick?: (
-        feeling: Feeling,
-        setVisibility: React.Dispatch<React.SetStateAction<string>>,
-        visibility: string
+        feeling: Feeling
     ) => void
 }
 

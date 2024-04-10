@@ -18,22 +18,20 @@ export default function DayComponent({ date, month }: Props) {
     let filteredEmotions = allEmotions?.slice();
 
     if (allEmotions) {
-
-        filteredEmotions = allEmotions!.filter(e => e.content.toLowerCase().includes(searchInput))
+        filteredEmotions = allEmotions!
+        .filter(e => e.content.toLowerCase().includes(searchInput) && !selectedEmotions.includes(e))
     }
 
     const selected: Feeling[] = selectedEmotions.slice() ?? [];
 
-    const onClickAll = (feeling: Feeling, setVisibility: React.Dispatch<React.SetStateAction<string>>, visibility: string) => {
+    const onClickAll = (feeling: Feeling) => {
         selected.push(feeling);
         setSelectedEmotions(selected);
-        setVisibility(visibility);
     }
 
-    const onClickSelected = (feeling: Feeling, setVisibility: React.Dispatch<React.SetStateAction<string>>, visibility: string) => {
-        setSelectedEmotions(selected)
-        setVisibility(visibility)
-        selected.slice(selected.indexOf(feeling))
+    const onClickSelected = (feeling: Feeling) => {
+        const removed = selected.filter(e => e != feeling);
+        setSelectedEmotions(removed)
     }
 
     const emotions = selectedEmotions;
