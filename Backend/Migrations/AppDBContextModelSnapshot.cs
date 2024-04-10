@@ -36,6 +36,9 @@ namespace Backend.Migrations
                     b.Property<int>("Month")
                         .HasColumnType("int");
 
+                    b.Property<int?>("MonthIndex")
+                        .HasColumnType("int");
+
                     b.Property<int?>("RelationshipId")
                         .HasColumnType("int");
 
@@ -43,6 +46,8 @@ namespace Backend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MonthIndex");
 
                     b.HasIndex("RelationshipId");
 
@@ -71,6 +76,19 @@ namespace Backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Emotions");
+                });
+
+            modelBuilder.Entity("Backend.Models.Enteties.Month", b =>
+                {
+                    b.Property<int>("MonthIndex")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MonthIndex"));
+
+                    b.HasKey("MonthIndex");
+
+                    b.ToTable("Months");
                 });
 
             modelBuilder.Entity("Backend.Models.Enteties.Relationship", b =>
@@ -122,6 +140,10 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.Enteties.Day", b =>
                 {
+                    b.HasOne("Backend.Models.Enteties.Month", null)
+                        .WithMany("DaysInMonth")
+                        .HasForeignKey("MonthIndex");
+
                     b.HasOne("Backend.Models.Enteties.Relationship", "Relationship")
                         .WithMany("Days")
                         .HasForeignKey("RelationshipId");
@@ -157,6 +179,11 @@ namespace Backend.Migrations
                         .HasForeignKey("WantedEmotionsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Backend.Models.Enteties.Month", b =>
+                {
+                    b.Navigation("DaysInMonth");
                 });
 
             modelBuilder.Entity("Backend.Models.Enteties.Relationship", b =>
