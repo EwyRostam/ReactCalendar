@@ -39,7 +39,7 @@ const AddRelationshipLazyRoute = AddRelationshipLazyImport.update({
   path: '/addRelationship',
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./routes/addRelationship.lazy').then((d) => d.Route),
+  import('./routes/relationship.lazy').then((d) => d.Route),
 )
 
 const AboutLazyRoute = AboutLazyImport.update({

@@ -2,16 +2,16 @@ import { createLazyFileRoute } from '@tanstack/react-router'
 import AddRelationship from '../components/AddRelationship'
 
 export const Route = createLazyFileRoute('/addRelationship')({
-  component: () => <div>Hello /addRelationship!</div>
+  component: () => Relationship
 })
 
 
 
-export default function addRelationship() {
+export default function Relationship() {
 
   return (
-    <>
-      <AddRelationship />
-    </>
+
+    <AddRelationship />
+
   )
 }
