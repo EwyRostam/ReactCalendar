@@ -26,7 +26,7 @@ namespace Backend.Controllers
             dayReq.Emotions.ForEach(feeling => score += feeling.Value);
 
             var allEmotions = await _context.Emotions.ToListAsync();
-            
+
             var emotions = new List<Emotion>();
             dayReq.Emotions.ForEach(feeling => emotions.Add(
                 allEmotions.First(e =>
@@ -40,10 +40,27 @@ namespace Backend.Controllers
                 Emotions = emotions,
                 Score = score
             };
+            var month = await _context.Months
+            .Include(m => m.DaysInMonth)
+            .FirstOrDefaultAsync(m =>
+            m.MonthIndex == dayToAdd.Month);
+
+
+            if (month == null)
+            {
+                month = new Month()
+                {
+                    MonthIndex = dayToAdd.Month
+                };
+                await _context.Months.AddAsync(month);
+            }
+
+
+            month.DaysInMonth.Add(dayToAdd);
 
             await _context.Days.AddAsync(dayToAdd);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetDay), new {id = dayToAdd.Id}, dayToAdd);
+            return CreatedAtAction(nameof(GetDay), new { id = dayToAdd.Id }, dayToAdd);
         }
 
         [HttpGet("{date}/{month}")]
@@ -53,7 +70,7 @@ namespace Backend.Controllers
             .Include(day => day.Emotions)
             .FirstOrDefaultAsync(e => e.Date == date && e.Month == month);
 
-            if(response == null)
+            if (response == null)
             {
                 return BadRequest();
             }
