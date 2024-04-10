@@ -1,15 +1,18 @@
 import { Feeling } from "./EmotionsAPI";
 
 export type DayType = {
-    date?: number;
+    date: number;
+    month: number;
     emotions: Feeling[];
 }
 
 const URL_BASE = "http://localhost:5236/Days";
 const headers = {'Content-type': "application/json; charset=UTF-8"}
 
-export const createDay = async ({emotions}: DayType ): Promise<DayType> => {
+export const createDay = async ({date, month, emotions}: DayType ): Promise<DayType> => {
     const body = JSON.stringify({
+        date: date,
+        month: month,
         emotions: emotions
     })
     const method = 'POST'
