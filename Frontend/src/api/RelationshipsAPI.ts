@@ -2,9 +2,9 @@ import { Feeling } from "./EmotionsAPI";
 
 export type Relationship = {
     id?: number;
-    name: string;
-    category: string;
-    wantedEmotions: Feeling[];
+    name?: string;
+    category?: string;
+    wantedEmotions?: Feeling[];
 }
 
 const URL_BASE = "http://localhost:5236/Relationships";

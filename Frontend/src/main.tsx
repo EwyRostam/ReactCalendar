@@ -6,6 +6,7 @@ import { routeTree } from './routeTree.gen.ts'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import './index.css'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { RelationshipContextProvider } from './app-context/relationship-context-provider.tsx'
 
 const router = createRouter({ routeTree })
 const queryClient = new QueryClient();
@@ -20,9 +21,11 @@ declare module '@tanstack/react-router' {
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-    <RouterProvider router={router} />
-    <TanStackRouterDevtools router={router} />
-      <App />
+      <RouterProvider router={router} />
+      <TanStackRouterDevtools router={router} />
+      <RelationshipContextProvider>
+        <App />
+      </RelationshipContextProvider>
     </QueryClientProvider>
   </StrictMode>,
 )
