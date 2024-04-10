@@ -1,9 +1,9 @@
 import SearchBar from '../components/SearchBar'
 import RenderEmotions from '../components/RenderEmotions'
-import { useGetEmotions } from '../hooks/useEmotions'
 import { useState } from 'react'
 import { Feeling } from '../api/EmotionsAPI'
 import { DayType, createDay } from '../api/DaysAPI'
+import { useGetEmotions } from '../hooks/useEmotions'
 
 type Props = {
     date: number;

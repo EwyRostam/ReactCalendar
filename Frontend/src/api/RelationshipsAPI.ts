@@ -1,15 +1,18 @@
+import { Feeling } from "./EmotionsAPI";
 
 export type Relationship = {
     name: string;
-    wantedEmotions: string[];
+    category: string;
+    wantedEmotions: Feeling[];
 }
 
 const URL_BASE = "http://localhost:5236/Relationships";
 const headers = {'Content-type': "application/json; charset=UTF-8"}
 
-export const createRelationship = async ({name, wantedEmotions} :Relationship ): Promise<Relationship> => {
+export const createRelationship = async ({name, category, wantedEmotions} :Relationship ): Promise<Relationship> => {
     const body = JSON.stringify({
         name: name,
+        category: category,
         wantedEmotions: wantedEmotions
     })
     const method = 'POST'
