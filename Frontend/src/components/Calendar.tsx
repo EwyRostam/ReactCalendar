@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Weekdays } from '../configs/Weekdays'
 import CalenderDate from './CalenderDate';
-import Feeling from './Feeling';
 import { daysBeforeMonth, daysInMonth, month, today } from '../helpers/DateHelpers';
 import { getAllDays } from '../api/DaysAPI';
 import { useQuery } from 'react-query';
@@ -14,15 +13,6 @@ daysInMonth.map((day) => monthWithColors.set(day, ""));
 export function Calendar() {
     const [color, setColor] = useState<Map<number, string>>(monthWithColors);
     const [selectedDate, setSelectedDate] = useState<number>(today);
-
-    const ChangeColor = (mood: string) => {
-        const currentMap = color;
-        color.get(selectedDate) != mood
-            ? (currentMap.set(selectedDate, mood))
-            : (currentMap.set(selectedDate, ""))
-
-        setColor(new Map(currentMap));
-    }
 
     const { data: registeredDays } = useQuery('days', getAllDays);
 
@@ -69,7 +59,6 @@ export function Calendar() {
                     }
                 </div>
             </div>
-            <Feeling handleClick={ChangeColor} />
         </>
     )
 }
