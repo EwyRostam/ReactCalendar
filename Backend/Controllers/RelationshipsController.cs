@@ -18,29 +18,29 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Relationship>> CreateRelationship(RelationshipRequest relationshipReq)
+        public async Task<ActionResult<Relationship>> CreateRelationship(Relationship relationship)
         {
-            if (await _context.Relationships.AnyAsync(rel => rel.Name == relationshipReq.Name))
+            if (await _context.Relationships.AnyAsync(rel => rel.Name == relationship.Name))
             {
                 return BadRequest();
             }
 
-            var wantedEmotions = new List<Emotion>();
+            // var wantedEmotions = new List<Emotion>();
 
-            foreach (var emotion in relationshipReq.WantedEmotions)
-            {
-                var emotionToAdd = await _context.Emotions.FirstOrDefaultAsync(feeling => feeling.Content == emotion);
-                if (emotionToAdd != null)
-                {
-                    wantedEmotions.Add(emotionToAdd);
-                }
-            }
+            // foreach (var emotion in relationship.WantedEmotions)
+            // {
+            //     var emotionToAdd = await _context.Emotions.FirstOrDefaultAsync(feeling => feeling.Content == emotion.Content);
+            //     if (emotionToAdd != null)
+            //     {
+            //         wantedEmotions.Add(emotionToAdd);
+            //     }
+            // }
 
-            var relationship = new Relationship()
-            {
-                Name = relationshipReq.Name,
-                WantedEmotions = wantedEmotions
-            };
+            // var relationshipToAdd = new Relationship()
+            // {
+            //     Name = relationship.Name,
+            //     WantedEmotions = wantedEmotions
+            // };
 
             await _context.Relationships.AddAsync(relationship);
             await _context.SaveChangesAsync();

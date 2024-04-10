@@ -5,7 +5,8 @@ namespace Backend.Models.DTOs
     public record RelationshipRequest
     (
         string Name,
-        List<string> WantedEmotions
+        string Category,
+        List<EmotionRequest> WantedEmotions
     );
 
 }
