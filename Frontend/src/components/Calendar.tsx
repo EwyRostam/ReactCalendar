@@ -11,7 +11,7 @@ daysInMonth.map((day) => monthWithColors.set(day, ""));
 
 
 export function Calendar() {
-    const [color, setColor] = useState<Map<number, string>>(monthWithColors);
+    const [color] = useState<Map<number, string>>(monthWithColors);
     const [selectedDate, setSelectedDate] = useState<number>(today);
 
     const { data: registeredDays } = useQuery('days', getAllDays);
