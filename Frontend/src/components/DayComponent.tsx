@@ -33,11 +33,12 @@ export default function DayComponent ({date, month} :Props) {
     const emotions = selectedEmotions;
   
     const dayToCreate : DayType = {date, month, emotions};
-  
-  
+
+    const heading = new Date().toLocaleDateString();
+
     return (
       <section className="flex flex-col items-center p-2 gap-2">
-        <h1 className="text-3xl">{date} of {month}</h1>
+        <h1 className="text-3xl">{heading}</h1>
         <h2 className="text-2xl">How did you feel today?</h2>
         <SearchBar />
         <article className="border border-black rounded-md size-60">
