@@ -5,7 +5,7 @@ namespace Backend.Models.Enteties
 {
     public class Month
     {
-        [Key]
+        public int Id {get; set;} 
         public int MonthIndex {get; set;}
         public List<Day> DaysInMonth {get;} = [];
     }

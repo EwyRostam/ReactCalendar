@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240410160321_InitialCreate")]
+    [Migration("20240410162635_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -39,7 +39,7 @@ namespace Backend.Migrations
                     b.Property<int>("Month")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MonthIndex")
+                    b.Property<int?>("MonthId")
                         .HasColumnType("int");
 
                     b.Property<int?>("RelationshipId")
@@ -50,7 +50,7 @@ namespace Backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MonthIndex");
+                    b.HasIndex("MonthId");
 
                     b.HasIndex("RelationshipId");
 
@@ -83,13 +83,16 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.Enteties.Month", b =>
                 {
-                    b.Property<int>("MonthIndex")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MonthIndex"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.HasKey("MonthIndex");
+                    b.Property<int>("MonthIndex")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Months");
                 });
@@ -145,7 +148,7 @@ namespace Backend.Migrations
                 {
                     b.HasOne("Backend.Models.Enteties.Month", null)
                         .WithMany("DaysInMonth")
-                        .HasForeignKey("MonthIndex");
+                        .HasForeignKey("MonthId");
 
                     b.HasOne("Backend.Models.Enteties.Relationship", "Relationship")
                         .WithMany("Days")

@@ -41,7 +41,6 @@ namespace Backend.Controllers
                 Score = score
             };
             var month = await _context.Months
-            .Include(m => m.DaysInMonth)
             .FirstOrDefaultAsync(m =>
             m.MonthIndex == dayToAdd.Month);
 
@@ -60,7 +59,7 @@ namespace Backend.Controllers
 
             await _context.Days.AddAsync(dayToAdd);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetDay), new { id = dayToAdd.Id }, dayToAdd);
+            return dayToAdd;
         }
 
         [HttpGet("{date}/{month}")]

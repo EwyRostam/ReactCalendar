@@ -29,12 +29,13 @@ namespace Backend.Migrations
                 name: "Months",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     MonthIndex = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Months", x => x.MonthIndex);
+                    table.PrimaryKey("PK_Months", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,16 +61,16 @@ namespace Backend.Migrations
                     Month = table.Column<int>(type: "int", nullable: false),
                     Score = table.Column<int>(type: "int", nullable: false),
                     RelationshipId = table.Column<int>(type: "int", nullable: true),
-                    MonthIndex = table.Column<int>(type: "int", nullable: true)
+                    MonthId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Days", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Days_Months_MonthIndex",
-                        column: x => x.MonthIndex,
+                        name: "FK_Days_Months_MonthId",
+                        column: x => x.MonthId,
                         principalTable: "Months",
-                        principalColumn: "MonthIndex");
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Days_Relationships_RelationshipId",
                         column: x => x.RelationshipId,
@@ -131,9 +132,9 @@ namespace Backend.Migrations
                 column: "EmotionsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Days_MonthIndex",
+                name: "IX_Days_MonthId",
                 table: "Days",
-                column: "MonthIndex");
+                column: "MonthId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Days_RelationshipId",
