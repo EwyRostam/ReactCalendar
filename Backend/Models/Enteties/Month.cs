@@ -7,6 +7,6 @@ namespace Backend.Models.Enteties
     {
         [Key]
         public int MonthIndex {get; set;}
-        public required ICollection<Day> DaysInMonth {get; set;}
+        public List<Day> DaysInMonth {get;} = [];
     }
 }
