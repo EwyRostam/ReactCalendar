@@ -4,6 +4,7 @@ export type DayType = {
     date: number;
     month: number;
     emotions: Feeling[];
+    score?: number;
 }
 
 const URL_BASE = "http://localhost:5236/Days";

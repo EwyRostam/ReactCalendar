@@ -3,6 +3,8 @@ import { Weekdays } from '../configs/Weekdays'
 import CalenderDate from './CalenderDate';
 import Feeling from './Feeling';
 import { daysBeforeMonth, daysInMonth, month, today } from '../helpers/DateHelpers';
+import { getAllDays } from '../api/DaysAPI';
+import { useQuery } from 'react-query';
 
 
 let monthWithColors: Map<number, string> = new Map();
@@ -21,6 +23,29 @@ export function Calendar() {
 
         setColor(new Map(currentMap));
     }
+
+    const { data: registeredDays } = useQuery('days', getAllDays);
+
+    if (registeredDays) {
+        console.log("Array fetched from api", registeredDays)
+
+        const daysList = registeredDays!.slice();
+
+        console.log("Copy of array", daysList)
+
+        for (let i = 0; i < daysList.length; i++) {
+            console.log("item in list", daysList[i])
+
+            const value = daysList[i].score! > 0 ? "bg-green-400 hover:bg-green-500" : "bg-red-400 hover:bg-red-500";
+
+            console.log("Score of item", daysList[i].score)
+
+            color.set(daysList[i].date, value);
+
+            console.log("Date of item", daysList[i].date)
+        }
+    }
+
 
     return (
         <>
