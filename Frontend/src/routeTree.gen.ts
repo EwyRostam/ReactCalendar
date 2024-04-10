@@ -16,7 +16,6 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
-const RelationshipLazyImport = createFileRoute('/relationship')()
 const OverviewLazyImport = createFileRoute('/overview')()
 const DayLazyImport = createFileRoute('/day')()
 const AboutLazyImport = createFileRoute('/about')()
@@ -24,11 +23,6 @@ const ReactLazyImport = createFileRoute('/React')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
-
-const RelationshipLazyRoute = RelationshipLazyImport.update({
-  path: '/relationship',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/relationship.lazy').then((d) => d.Route))
 
 const OverviewLazyRoute = OverviewLazyImport.update({
   path: '/overview',
@@ -79,10 +73,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OverviewLazyImport
       parentRoute: typeof rootRoute
     }
-    '/relationship': {
-      preLoaderRoute: typeof RelationshipLazyImport
-      parentRoute: typeof rootRoute
-    }
   }
 }
 
@@ -94,7 +84,6 @@ export const routeTree = rootRoute.addChildren([
   AboutLazyRoute,
   DayLazyRoute,
   OverviewLazyRoute,
-  RelationshipLazyRoute,
 ])
 
 /* prettier-ignore-end */
