@@ -12,6 +12,13 @@ export type DayReq = {
     month: number
 }
 
+export type DayRes = {
+    date: number;
+    month: number;
+    score?: number;
+    emotions: {$values: Feeling[]}
+}
+
 const URL_BASE = "http://localhost:5236/Days";
 const headers = {'Content-type': "application/json; charset=UTF-8"}
 
@@ -31,8 +38,8 @@ export const getAllDays = async (): Promise<DayType[]> => {
     return result.$values as DayType[];
 }
 
-export const getSpecificDay = async ({date, month}: DayReq): Promise<DayType> => {
+export const getSpecificDay = async ({date, month}: DayReq): Promise<DayRes> => {
    
-    const response = await (await fetch(URL_BASE + `/${date}/${month}`)).json()
-    return response;
+    const response = await fetch(URL_BASE + `/${date}/${month}`).then(result => result.json())
+    return response as DayRes
 }
