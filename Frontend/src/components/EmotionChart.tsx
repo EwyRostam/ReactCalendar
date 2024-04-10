@@ -3,43 +3,11 @@ import { MonthReq, MonthRes, getSpecificMonth } from '../api/MonthsAPI';
 import { monthAsNumber } from '../helpers/DateHelpers';
 import { useQuery } from 'react-query';
 
-type DayData = {
-  name: number;
-  MoodIndex: number;
+export type DayData = {
+  date: number;
+  score: number;
 }
 
-
-
-const data = [
-  {
-    name: 'Page A',
-    MoodIndex: 2400,
-  },
-  {
-    name: 'Page B',
-    MoodIndex: 1398,
-  },
-  {
-    name: 'Page C',
-    MoodIndex: 9800,
-  },
-  {
-    name: 'Page D',
-    MoodIndex: 3908,
-  },
-  {
-    name: 'Page E',
-    MoodIndex: 4800,
-  },
-  {
-    name: 'Page F',
-    MoodIndex: 3800,
-  },
-  {
-    name: 'Page G',
-    MoodIndex: 4300,
-  },
-];
 
 export default function EmotionChart() {
   const monthIndex: number = monthAsNumber + 1;
@@ -54,8 +22,11 @@ export default function EmotionChart() {
 
   const daysArray = useQuery('month', fetchedMonth).data
 
-
-
+  let data;
+  if(daysArray)
+    {
+      data = daysArray!.slice();
+    }
 
   return (
     <section className="h-80">
@@ -72,11 +43,11 @@ export default function EmotionChart() {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="date" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="MoodIndex" stroke="#8884d8" activeDot={{ r: 8 }} />
+          <Line type="monotone" dataKey="score" stroke="#8884d8" activeDot={{ r: 8 }} />
         </LineChart>
       </ResponsiveContainer>
     </section>
