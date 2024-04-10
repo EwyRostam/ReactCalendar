@@ -1,7 +1,6 @@
 import { useQuery } from "react-query";
 import { DayReq, DayRes, getSpecificDay } from "../api/DaysAPI";
 import RenderEmotions from "./RenderEmotions";
-import { Feeling } from "../api/EmotionsAPI";
 
 type Props = {
     date: number;
@@ -24,12 +23,10 @@ export default function CompletedDay({ date, month }: Props) {
 
     const {data: print} = useQuery('day', fetchedDay);
 
-    const heading = new Date().toLocaleDateString();
 
     return (
         <section className="flex flex-col items-center p-2 gap-2">
-            <h1 className="text-3xl">{heading}</h1>
-            <h2 className="text-2xl">How did you feel today?</h2>
+            <h1 className="text-3xl">Your feelings {date}/{month}</h1>
 
             <article className="border border-black rounded-md size-60">
                 <RenderEmotions emotions={print ?? []} />
