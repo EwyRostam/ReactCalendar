@@ -1,3 +1,4 @@
+
 type Props = {
     date: number;
     color: Map<number, string>;
@@ -7,9 +8,10 @@ type Props = {
 export default function CalenderDate({ date, color, selected, handleClick}: Props) {
     const border = selected == date ? "border-orange-400" : "border-black";
     return (
-        <button onClick={() => handleClick(date)}
-            className={`w-1/7 border ${border} hover:border-white ${color.get(date)}`}>
+        <>
+        <button className={`border ${border} hover:border-white ${color.get(date)}`} onClick={() => handleClick(date)}>
             {date}
         </button>
+         </>
     )
 }

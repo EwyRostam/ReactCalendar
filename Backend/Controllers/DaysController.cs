@@ -46,10 +46,10 @@ namespace Backend.Controllers
             return CreatedAtAction(nameof(GetDay), new {id = dayToAdd.Id}, dayToAdd);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Day>> GetDay(int id)
+        [HttpGet()]
+        public async Task<ActionResult<Day>> GetDay(int date, int month)
         {
-            var response = await _context.Days.FirstOrDefaultAsync(e => e.Id == id);
+            var response = await _context.Days.FirstOrDefaultAsync(e => e.Date == date && e.Month == month);
 
             if(response == null)
             {
