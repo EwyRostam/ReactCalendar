@@ -41,15 +41,17 @@ namespace Backend.Controllers
                 Score = score
             };
 
-            await _context.AddAsync(dayToAdd);
+            await _context.Days.AddAsync(dayToAdd);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetDay), new {id = dayToAdd.Id}, dayToAdd);
         }
 
-        [HttpGet()]
+        [HttpGet("{date}/{month}")]
         public async Task<ActionResult<Day>> GetDay(int date, int month)
         {
-            var response = await _context.Days.FirstOrDefaultAsync(e => e.Date == date && e.Month == month);
+            var response = await _context.Days
+            .Include(day => day.Emotions)
+            .FirstOrDefaultAsync(e => e.Date == date && e.Month == month);
 
             if(response == null)
             {
@@ -62,7 +64,7 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Day>>> GetAllDays()
         {
-            return await _context.Days.ToListAsync();
+            return await _context.Days.Include(day => day.Emotions).ToListAsync();
         }
     }
 }

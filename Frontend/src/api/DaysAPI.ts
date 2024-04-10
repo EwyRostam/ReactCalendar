@@ -31,11 +31,8 @@ export const getAllDays = async (): Promise<DayType[]> => {
     return result.$values as DayType[];
 }
 
-export const getDay = async ({date, month}: DayReq): Promise<DayType> => {
-    const body = JSON.stringify({
-        date: date,
-        month: month
-    })
-    const response = await (await fetch(URL_BASE, {body, headers})).json()
+export const getSpecificDay = async ({date, month}: DayReq): Promise<DayType> => {
+   
+    const response = await (await fetch(URL_BASE + `/${date}/${month}`)).json()
     return response;
 }
