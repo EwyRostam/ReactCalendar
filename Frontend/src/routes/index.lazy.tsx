@@ -3,7 +3,7 @@ import AddEmotion from '../components/AddEmotions'
 import RenderEmotions from '../components/RenderEmotions'
 import { useGetEmotions } from '../hooks/useEmotions';
 import { useState } from 'react';
-import { Relationship, getAllRelationships } from '../api/RelationshipsAPI';
+import { Relationship, getAllRelationships, getSpecificRelationship } from '../api/RelationshipsAPI';
 import { useQuery } from 'react-query';
 
 export const Route = createLazyFileRoute('/')({
@@ -16,10 +16,15 @@ export default function Index() {
   const [selectedRelationship, setSelectedRelationship] = useState<Relationship>();
 
   const stored = sessionStorage.getItem("storedRelationship");
-  if(stored)
-    {
-      
+  if (stored) {
+    const keyAsInt = parseInt(stored);
+    const restoreSelected = async () => {
+      const result = await getSpecificRelationship(keyAsInt)
+      setSelectedRelationship(result);
     }
+    restoreSelected();
+
+  }
 
   const handleClick = (rel: Relationship) => {
     setSelectedRelationship(rel);
@@ -27,7 +32,7 @@ export default function Index() {
   }
 
   if (selectedRelationship == null) {
-  const { data, isLoading, isError } = useQuery('relationships', getAllRelationships);
+    const { data, isLoading, isError } = useQuery('relationships', getAllRelationships);
 
     return (
       <>
