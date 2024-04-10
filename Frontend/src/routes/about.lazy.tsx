@@ -7,7 +7,7 @@ export const Route = createLazyFileRoute('/about')({
   component: About,
 })
 
-function About() {
+export default function About() {
 
   return (
     <>
