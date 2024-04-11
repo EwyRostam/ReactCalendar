@@ -6,6 +6,7 @@ import { DayType, createDay } from '../api/DaysAPI'
 import { useGetEmotions } from '../hooks/useEmotions'
 import { Link } from '@tanstack/react-router'
 import SquareBtn from './SquareBtn'
+import AddEmotions from './AddEmotions'
 
 type Props = {
     date: number;
@@ -18,6 +19,12 @@ export default function DayComponent({ date, month }: Props) {
     const [selectedEmotions, setSelectedEmotions] = useState<Feeling[]>([]);
     const [searchInput, setSearchInput] = useState<string>("");
     let filteredEmotions = allEmotions?.slice();
+
+    const [showModal, setShowModal] = useState<boolean>(false);
+
+    function toggleModal() {
+        setShowModal(!showModal);
+    }
 
     if (allEmotions) {
         filteredEmotions = allEmotions!
@@ -46,6 +53,13 @@ export default function DayComponent({ date, month }: Props) {
 
     const heading = new Date().toLocaleDateString();
 
+    if (showModal) {
+        return (
+            <AddEmotions handleClick={toggleModal}/>
+        )
+    }
+
+
     return (
 
         <section className="flex justify-center bg-background">
@@ -69,12 +83,10 @@ export default function DayComponent({ date, month }: Props) {
                         </button>
                         <RenderEmotions handleClick={onClickAll} emotions={filteredEmotions ?? []} />
                     </section>
-                    <SquareBtn />
+                    <SquareBtn handleClick={toggleModal} />
 
                 </div>
             </div>
         </section>
-
-
     )
 }
