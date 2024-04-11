@@ -7,6 +7,8 @@ import { useGetEmotions } from '../hooks/useEmotions'
 import { Link } from '@tanstack/react-router'
 import SquareBtn from './SquareBtn'
 import AddEmotions from './AddEmotions'
+import { format } from 'date-fns'
+import { year } from '../helpers/DateHelpers'
 
 type Props = {
     date: number;
@@ -51,7 +53,7 @@ export default function DayComponent({ date, month }: Props) {
 
     const dayToCreate: DayType = { date, month, emotions };
 
-    const heading = new Date().toLocaleDateString();
+    const heading = format(new Date(year, month -1, date), 'PPP')
 
     if (showModal) {
         return (
