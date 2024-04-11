@@ -10,7 +10,7 @@ export type DayData = {
 
 
 export default function EmotionChart() {
-  const monthIndex: number = monthAsNumber + 1;
+  const monthIndex: number = monthAsNumber;
   const month: MonthReq = { monthIndex }
 
   const fetchedMonth = async () => {

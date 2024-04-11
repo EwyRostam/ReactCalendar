@@ -12,7 +12,7 @@ export default function About() {
   return (
     <>
       <Calendar />
-      <CompletedDay date={today} month={monthAsNumber + 1}/>
+      <CompletedDay date={today} month={monthAsNumber}/>
     </>
   )
 
