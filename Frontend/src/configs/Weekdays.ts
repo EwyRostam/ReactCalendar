@@ -1,2 +1,2 @@
 export const Weekdays: Array<string> = 
-['Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']

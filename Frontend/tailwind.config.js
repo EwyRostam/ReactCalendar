@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {},
+    colors: {
+      background: '#fcfcfc'
+    },
   },
   plugins: [require("daisyui")],
 }

@@ -28,12 +28,12 @@ export function Calendar() {
     return (
         <>
             <div className="flex flex-col items-center">
-                <header>
+                <header className="mt-20 mb-5">
                     <h1 className="text-3xl">
                         {month}
                     </h1>
                 </header>
-                <div className="flex justify-center w-64 border border-black break-normal grid grid-cols-7">
+                <div className="flex justify-center w-64 shadow-xl drop-shadow-2xl break-normal grid grid-cols-7 rounded-md bg-white">
                     {Weekdays.map(day => (
                         <div key={day} className="w-1/7">{day}</div>
                     ))}
