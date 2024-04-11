@@ -9,6 +9,7 @@ type Props = {
 }
 export default function CalenderDate({ date, color, selected, handleClick }: Props) {
     const border = selected == date ? "border border-orange-400" : "";
+
     return (
         <>
             <Link to="/day"
