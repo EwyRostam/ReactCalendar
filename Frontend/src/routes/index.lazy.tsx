@@ -12,7 +12,9 @@ export const Route = createLazyFileRoute('/')({
 
 export default function Index() {
   // const [selectedRelationship, setSelectedRelationship] = useState<Relationship>();
-  const [showDayView, setShowDayView] = useState<boolean>(true);
+  const [showDayView, setShowDayView] = useState<string>("true");
+
+
 
   // const stored = sessionStorage.getItem("storedRelationship");
   // if (stored) {
@@ -42,11 +44,9 @@ export default function Index() {
   //   )
   // }
 
-  if (showDayView) {
+  if (showDayView == "true") {
     return (
-
       <DayComponent setState={setShowDayView} date={today} month={monthAsNumber} />
-
     )
   }
 

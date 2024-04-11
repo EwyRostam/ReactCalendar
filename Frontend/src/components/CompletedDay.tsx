@@ -11,7 +11,7 @@ type Props = {
 
 
 export default function CompletedDay({ date, month }: Props) {
-
+    
     const dayReq: DayReq = { date, month };
 
 
