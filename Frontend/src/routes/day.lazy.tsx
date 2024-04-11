@@ -11,7 +11,7 @@ export const Route = createLazyFileRoute('/day')({
 export default function Day() {
 
 return(
-  <DayComponent date={today} month={monthAsNumber + 1}/>
+  <p>hej</p>
 )
 
 }
