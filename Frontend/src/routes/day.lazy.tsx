@@ -1,6 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import { monthAsNumber, today } from '../helpers/DateHelpers'
-import DayComponent from '../components/DayComponent'
+import CompletedDay from '../components/CompletedDay'
 
 export const Route = createLazyFileRoute('/day')({
   component: Day,
@@ -11,7 +11,7 @@ export const Route = createLazyFileRoute('/day')({
 export default function Day() {
 
 return(
-  <p>hej</p>
+  <CompletedDay date={today} month={monthAsNumber}/>
 )
 
 }
