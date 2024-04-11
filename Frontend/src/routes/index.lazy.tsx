@@ -47,7 +47,7 @@ export default function Index() {
 
   if (showDayView) {
     return (
-      <section className="flex justify-center bg-stone-50">
+      <section className="flex justify-center bg-background">
         <div className="card w-96 bg-base-100 shadow-xl">
           <div className="card-body">
             <div className="card-actions justify-end">
@@ -63,7 +63,7 @@ export default function Index() {
   }
 
   return (
-    <div className="bg-stone-50 h-screen">
+    <div className="bg-background h-screen">
       <Calendar />
     </div>
   )
