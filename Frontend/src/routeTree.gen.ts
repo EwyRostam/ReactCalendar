@@ -18,7 +18,6 @@ import { Route as rootRoute } from './routes/__root'
 
 const OverviewLazyImport = createFileRoute('/overview')()
 const DayLazyImport = createFileRoute('/day')()
-const AboutLazyImport = createFileRoute('/about')()
 const ReactLazyImport = createFileRoute('/React')()
 const IndexLazyImport = createFileRoute('/')()
 
@@ -33,11 +32,6 @@ const DayLazyRoute = DayLazyImport.update({
   path: '/day',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/day.lazy').then((d) => d.Route))
-
-const AboutLazyRoute = AboutLazyImport.update({
-  path: '/about',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
 
 const ReactLazyRoute = ReactLazyImport.update({
   path: '/React',
@@ -61,10 +55,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReactLazyImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      preLoaderRoute: typeof AboutLazyImport
-      parentRoute: typeof rootRoute
-    }
     '/day': {
       preLoaderRoute: typeof DayLazyImport
       parentRoute: typeof rootRoute
@@ -81,7 +71,6 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   ReactLazyRoute,
-  AboutLazyRoute,
   DayLazyRoute,
   OverviewLazyRoute,
 ])
