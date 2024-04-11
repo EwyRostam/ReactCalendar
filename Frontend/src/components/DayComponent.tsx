@@ -4,15 +4,15 @@ import { useState } from 'react'
 import { Feeling } from '../api/EmotionsAPI'
 import { DayType, createDay } from '../api/DaysAPI'
 import { useGetEmotions } from '../hooks/useEmotions'
+import { Link } from '@tanstack/react-router'
 
 type Props = {
     date: number;
     month: number;
-    setState: (bool: string) => void
 }
 
 
-export default function DayComponent({ date, month, setState}: Props) {
+export default function DayComponent({ date, month}: Props) {
     const allEmotions = useGetEmotions().data;
     const [selectedEmotions, setSelectedEmotions] = useState<Feeling[]>([]);
     const [searchInput, setSearchInput] = useState<string>("");
@@ -36,7 +36,7 @@ export default function DayComponent({ date, month, setState}: Props) {
     }
 
     const hideDayView = () => {
-        setState("false");
+        sessionStorage.setItem("dayView", "hide");
     }
 
     const emotions = selectedEmotions;
@@ -51,9 +51,9 @@ export default function DayComponent({ date, month, setState}: Props) {
             <div className="card w-96 bg-base-100 shadow-xl">
                 <div className="card-body">
                     <div className="card-actions justify-end">
-                        <button className="btn btn-square btn-sm" onClick={() => hideDayView()}>
+                        <Link to="/" className="btn btn-square btn-sm" onClick={() => hideDayView()}>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                        </button>
+                        </Link>
                     </div>
 
                     <section className="flex flex-col items-center p-2 gap-2">

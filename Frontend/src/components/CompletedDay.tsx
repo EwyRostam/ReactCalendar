@@ -11,7 +11,7 @@ type Props = {
 
 
 export default function CompletedDay({ date, month }: Props) {
-    
+
     const dayReq: DayReq = { date, month };
 
 
@@ -22,17 +22,16 @@ export default function CompletedDay({ date, month }: Props) {
         return $values
     }
 
-    const { data: emotions, isError } = useQuery('day', fetchedDay);
+    const { data: emotions, isError, isLoading } = useQuery('day', fetchedDay);
 
     if (!isError) {
         return (
             <section className="flex flex-col items-center p-2 gap-2">
-                <h1 className="text-3xl">Your feelings {date}/{month}</h1>
-
-                <article className="border border-black rounded-md size-60">
-                    <RenderEmotions emotions={emotions ?? []} />
-                </article>
-
+                {isLoading && <p>Loading...</p>}
+                {emotions && <><h1 className="text-3xl">Your feelings {date}/{month}</h1>
+                    <article className="border border-black rounded-md size-60">
+                        <RenderEmotions emotions={emotions ?? []} />
+                    </article></>}
             </section>
         )
 
