@@ -16,15 +16,14 @@ export default function Index() {
   const [selectedRelationship, setSelectedRelationship] = useState<Relationship>();
 
   const stored = sessionStorage.getItem("storedRelationship");
-  if(stored)
-    {
-      const keyAsInt = parseInt(stored);
-      const restoreSelected = async () => {
-        const result = await getSpecificRelationship(keyAsInt)
-        setSelectedRelationship(result);
+  if (stored) {
+    const keyAsInt = parseInt(stored);
+    const restoreSelected = async () => {
+      const result = await getSpecificRelationship(keyAsInt)
+      setSelectedRelationship(result);
     }
-      restoreSelected();
-    }
+    restoreSelected();
+  }
 
   const handleClick = (rel: Relationship) => {
     setSelectedRelationship(rel);
@@ -32,17 +31,17 @@ export default function Index() {
   }
 
   if (selectedRelationship == null) {
-  const { data, isLoading, isError } = useQuery('relationships', getAllRelationships);
+    const { data, isLoading, isError } = useQuery('relationships', getAllRelationships);
 
     return (
-      <>
+      <div className="flex flex-col items-center gap-2">
         {isLoading && <p>Loading...</p>}
         {isError && <p>An error ocurred...</p>}
         {data && data.map(rel =>
           <button className="border border-black" onClick={() => handleClick(rel)}>
             {rel.name}
           </button>)}
-      </>
+      </div>
     )
   }
 
