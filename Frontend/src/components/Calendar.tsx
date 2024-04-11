@@ -4,6 +4,7 @@ import CalenderDate from './CalenderDate';
 import { daysBeforeMonth, daysInMonth, month, today } from '../helpers/DateHelpers';
 import { getAllDays } from '../api/DaysAPI';
 import { useQuery } from 'react-query';
+import CalendarLine from './CalendarLine';
 
 
 let monthWithColors: Map<number, string> = new Map();
@@ -33,12 +34,13 @@ export function Calendar() {
                         {month}
                     </h1>
                 </header>
-                <div className="flex justify-center w-64 shadow-xl drop-shadow-2xl break-normal grid grid-cols-7 rounded-md bg-white">
+                <div className="flex justify-center w-80 h-64 shadow-xl drop-shadow-2xl break-normal grid grid-cols-7 rounded-md bg-white">
                     {Weekdays.map(day => (
-                        <div key={day} className="w-1/7">{day}</div>
+                        <div key={day} className="w-1/7 flex items-center justify-center py-1 px-1">{day}</div>
                     ))}
+                    <CalendarLine/>
                     {daysBeforeMonth.map((emptyDayIndex) => (
-                        <button key={emptyDayIndex} className="w-1/7 border border-black"></button>
+                        <button key={emptyDayIndex} className="w-1/7"></button>
                     ))}
 
                     {[...color.keys()].map((thisDate) => {

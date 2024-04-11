@@ -6,10 +6,10 @@ type Props = {
     handleClick: (date: number) => void
 }
 export default function CalenderDate({ date, color, selected, handleClick}: Props) {
-    const border = selected == date ? "border-orange-400" : "border-black";
+    const border = selected == date ? "border border-orange-400" : "";
     return (
         <>
-        <button className={`border ${border} hover:border-white ${color.get(date)}`} onClick={() => handleClick(date)}>
+        <button className={`${border} hover:shadow-md ${color.get(date)} rounded-sm mx-px`} onClick={() => handleClick(date)}>
             {date}
         </button>
          </>
