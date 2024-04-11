@@ -11,7 +11,6 @@ export default function Overview () {
   return(
     <>
     <EmotionChart/>
-    <AddRelationship />
     </>
 
   )
