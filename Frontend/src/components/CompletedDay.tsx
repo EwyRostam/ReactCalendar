@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { DayReq, DayRes, getSpecificDay } from "../api/DaysAPI";
 import RenderEmotions from "./RenderEmotions";
+import DayComponent from "./DayComponent";
 
 type Props = {
     date: number;
@@ -16,22 +17,28 @@ export default function CompletedDay({ date, month }: Props) {
 
     const fetchedDay = async () => {
         const result = await getSpecificDay(dayReq)
-        const {emotions} = result as DayRes
-        const {$values} = emotions
+        const { emotions } = result as DayRes
+        const { $values } = emotions
         return $values
     }
 
-    const {data: print} = useQuery('day', fetchedDay);
+    const { data: emotions, isError } = useQuery('day', fetchedDay);
 
+    if (!isError) {
+        return (
+            <section className="flex flex-col items-center p-2 gap-2">
+                <h1 className="text-3xl">Your feelings {date}/{month}</h1>
+
+                <article className="border border-black rounded-md size-60">
+                    <RenderEmotions emotions={emotions ?? []} />
+                </article>
+
+            </section>
+        )
+
+    }
 
     return (
-        <section className="flex flex-col items-center p-2 gap-2">
-            <h1 className="text-3xl">Your feelings {date}/{month}</h1>
-
-            <article className="border border-black rounded-md size-60">
-                <RenderEmotions emotions={print ?? []} />
-            </article>
-
-        </section>
+        <DayComponent date={date} month={month}/>
     )
 }
