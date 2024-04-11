@@ -5,6 +5,7 @@ import { Feeling } from '../api/EmotionsAPI'
 import { DayType, createDay } from '../api/DaysAPI'
 import { useGetEmotions } from '../hooks/useEmotions'
 import { Link } from '@tanstack/react-router'
+import SquareBtn from './SquareBtn'
 
 type Props = {
     date: number;
@@ -12,7 +13,7 @@ type Props = {
 }
 
 
-export default function DayComponent({ date, month}: Props) {
+export default function DayComponent({ date, month }: Props) {
     const allEmotions = useGetEmotions().data;
     const [selectedEmotions, setSelectedEmotions] = useState<Feeling[]>([]);
     const [searchInput, setSearchInput] = useState<string>("");
@@ -68,6 +69,7 @@ export default function DayComponent({ date, month}: Props) {
                         </button>
                         <RenderEmotions handleClick={onClickAll} emotions={filteredEmotions ?? []} />
                     </section>
+                    <SquareBtn />
 
                 </div>
             </div>
