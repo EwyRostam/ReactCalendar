@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vZfu2lDWnPDULaY9orGOxX7vYNNEZIToX6gKws4I2k7bgbO0bLyK+iEfcS8P+QVXMPKtKLgmD8D5kPW233PHcQ==",
+  "dgSpecHash": "Fy4oEvLW0urGOOctnbSSxtzmRbe23MJVP4jfkZZsY5DQr1t+74/M3Z1k4uzdSe7DO/TE6IynAIf4sbWMwEfh0w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ewyro\\salt\\CodeChallenges\\Reflections\\backend\\Backend.csproj",
+  "projectFilePath": "C:\\Users\\ewyro\\salt\\CodeChallenges\\Reflections\\Backend\\Backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ewyro\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\ewyro\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

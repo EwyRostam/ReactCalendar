@@ -6,10 +6,10 @@ import Overview from "./routes/overview.lazy";
 export default function App() {
   return (
     <>
-    <About/>
+    {/* <About/>
     <Day/>
     <Index/>
-    <Overview/>
+    <Overview/> */}
     </>
   );
 }
