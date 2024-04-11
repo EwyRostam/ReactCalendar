@@ -21,7 +21,9 @@ export default function AddEmotion({handleClick}: Props) {
         const opposite = oppositeEmotion.value;
         const feeling: Feeling = { content, value, opposite }
         createEmotion(feeling);
-        console.log("Feeling to post: ", feeling)
+        emotion.value = "";
+        positiveOrNegative.value = 0;
+        oppositeEmotion.value = "";
     }
 
     return (
