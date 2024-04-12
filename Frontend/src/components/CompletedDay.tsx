@@ -24,7 +24,7 @@ export default function CompletedDay({ date, month }: Props) {
 
     const { data: emotions, isError, isLoading } = useQuery(['day', window.location.href], fetchedDay);
 
-    if (!isError) {
+    if (!emotions) {
         return (
             <section className="flex flex-col items-center p-2 gap-2">
                 {isLoading && <p>Loading...</p>}
