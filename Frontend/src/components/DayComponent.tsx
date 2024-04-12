@@ -9,6 +9,7 @@ import SquareBtn from './SquareBtn'
 import AddEmotions from './AddEmotions'
 import { format } from 'date-fns'
 import { year } from '../helpers/DateHelpers'
+import { useMutation, useQueryClient } from 'react-query'
 
 type Props = {
     date: number;
@@ -32,6 +33,14 @@ export default function DayComponent({ date, month }: Props) {
         filteredEmotions = allEmotions!
             .filter(e => e.content.toLowerCase().includes(searchInput) && !selectedEmotions.includes(e))
     }
+
+    const queryClient = useQueryClient();
+
+    const onCreate = useMutation(createDay, {
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['days']})
+        },
+    })
 
     const selected: Feeling[] = selectedEmotions.slice() ?? [];
 
@@ -80,7 +89,7 @@ export default function DayComponent({ date, month }: Props) {
                         <article className="border border-black rounded-md size-60">
                             <RenderEmotions handleClick={onClickSelected} emotions={selectedEmotions} />
                         </article>
-                        <Link to="/" onClick={() => createDay(dayToCreate)} className="btn btn-outline btn-success w-60">
+                        <Link to="/" onClick={() => onCreate.mutate(dayToCreate)} className="btn btn-outline btn-success w-60">
                             Submit
                         </Link>
                         <RenderEmotions handleClick={onClickAll} emotions={filteredEmotions ?? []} />
