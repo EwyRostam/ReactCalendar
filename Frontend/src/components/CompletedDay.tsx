@@ -22,7 +22,7 @@ export default function CompletedDay({ date, month }: Props) {
         return $values
     }
 
-    const { data: emotions, isError, isLoading } = useQuery('day', fetchedDay);
+    const { data: emotions, isError, isLoading } = useQuery(['day', window.location.href], fetchedDay);
 
     if (!isError) {
         return (

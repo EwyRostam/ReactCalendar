@@ -1,6 +1,4 @@
-import { Navigate, createLazyFileRoute, useNavigate } from '@tanstack/react-router'
-import { useState } from 'react';
-import DayComponent from '../components/DayComponent';
+import { Navigate, createLazyFileRoute } from '@tanstack/react-router'
 import { monthAsNumber, today } from '../helpers/DateHelpers';
 import { Calendar } from '../components/Calendar'
 import { DayReq, DayRes, getSpecificDay } from '../api/DaysAPI';

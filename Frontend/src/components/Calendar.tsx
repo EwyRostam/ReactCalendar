@@ -15,7 +15,7 @@ export function Calendar() {
     const [color] = useState<Map<number, string>>(monthWithColors);
     const [selectedDate, setSelectedDate] = useState<number>(today);
 
-    const { data: registeredDays } = useQuery('days', getAllDays);
+    const { data: registeredDays } = useQuery(['days', window.location.href], getAllDays);
 
     if (registeredDays) {
 
