@@ -71,7 +71,9 @@ namespace Backend.Controllers
 
             if (response == null)
             {
-                return BadRequest();
+                return new Day(){
+                    Emotions = []
+                };
             }
 
             return Ok(response);
