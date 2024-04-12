@@ -26,56 +26,17 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Months",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MonthIndex = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Months", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Relationships",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Relationships", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Days",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<int>(type: "int", nullable: false),
-                    Month = table.Column<int>(type: "int", nullable: false),
-                    Score = table.Column<int>(type: "int", nullable: false),
-                    RelationshipId = table.Column<int>(type: "int", nullable: true),
-                    MonthId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Days", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Days_Months_MonthId",
-                        column: x => x.MonthId,
-                        principalTable: "Months",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Days_Relationships_RelationshipId",
-                        column: x => x.RelationshipId,
-                        principalTable: "Relationships",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -100,6 +61,53 @@ namespace Backend.Migrations
                         principalTable: "Relationships",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Months",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MonthIndex = table.Column<int>(type: "int", nullable: false),
+                    RelationshipId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Months", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Months_Relationships_RelationshipId",
+                        column: x => x.RelationshipId,
+                        principalTable: "Relationships",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Days",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<int>(type: "int", nullable: false),
+                    Month = table.Column<int>(type: "int", nullable: false),
+                    Score = table.Column<int>(type: "int", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RelationshipId = table.Column<int>(type: "int", nullable: true),
+                    MonthId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Days", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Days_Months_MonthId",
+                        column: x => x.MonthId,
+                        principalTable: "Months",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Days_Relationships_RelationshipId",
+                        column: x => x.RelationshipId,
+                        principalTable: "Relationships",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -145,6 +153,11 @@ namespace Backend.Migrations
                 name: "IX_EmotionRelationship_WantedEmotionsId",
                 table: "EmotionRelationship",
                 column: "WantedEmotionsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Months_RelationshipId",
+                table: "Months",
+                column: "RelationshipId");
         }
 
         /// <inheritdoc />
