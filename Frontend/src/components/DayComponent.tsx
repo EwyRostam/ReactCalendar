@@ -80,9 +80,9 @@ export default function DayComponent({ date, month }: Props) {
                         <article className="border border-black rounded-md size-60">
                             <RenderEmotions handleClick={onClickSelected} emotions={selectedEmotions} />
                         </article>
-                        <button onClick={() => createDay(dayToCreate)} className="btn btn-outline btn-success w-60">
+                        <Link to="/" onClick={() => createDay(dayToCreate)} className="btn btn-outline btn-success w-60">
                             Submit
-                        </button>
+                        </Link>
                         <RenderEmotions handleClick={onClickAll} emotions={filteredEmotions ?? []} />
                     </section>
                     <SquareBtn handleClick={toggleModal} />
