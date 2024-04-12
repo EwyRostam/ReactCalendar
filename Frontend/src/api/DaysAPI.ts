@@ -35,7 +35,6 @@ export const createDay = async ({date, month, emotions}: DayType ): Promise<DayT
 
 export const getAllDays = async (): Promise<DayType[]> => {
     const result = await fetch(URL_BASE).then(result => result.json())
-    console.log("In api", result.$values as DayType[])
     return result.$values as DayType[];
 }
 
