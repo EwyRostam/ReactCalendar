@@ -46,6 +46,11 @@ namespace Backend.Services
             return await _repo.GetSpecificAsync(emotion => emotion.Id == id) ?? null!;
         }
 
+        public async Task<IEnumerable<Emotion>> GetAllEmotionAsync()
+        {
+            return await _repo.GetAllAsync();
+        }
+
         public async Task<bool> EmotionExistsAsync(EmotionRequest emotionReq)
         {
             return await _repo.ExistsAsync(feeling => feeling.Content == emotionReq.Content);
