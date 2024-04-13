@@ -45,5 +45,10 @@ namespace Backend.Services
         {
             return await _repo.GetSpecificAsync(rel => rel.Id == id);
         }
+
+        public async Task<IEnumerable<Relationship>> GetAllRelationshipsAsync()
+        {
+            return await _repo.GetAllAsync();
+        }
     }
 }
