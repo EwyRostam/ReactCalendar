@@ -5,7 +5,8 @@ namespace Backend.Models.DTOs
     public record DayRequest
     (
          int Date, 
-         int Month, 
+         int Month,
+         string? Content, 
          List<EmotionRequest>? Emotions
     );
 
