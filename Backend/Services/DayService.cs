@@ -65,5 +65,10 @@ namespace Backend.Services
 
             return response;
         }
+
+        public async Task<IEnumerable<Day>> GetAllDaysAsync()
+        {
+            return await _repo.GetAllAsync();
+        }
     }
 }
