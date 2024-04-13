@@ -41,9 +41,9 @@ namespace Backend.Services
        
         }
 
-        public async Task<Emotion> GetEmotionAsync(int id)
+        public async Task<Emotion> GetEmotionAsync(string content)
         {
-            return await _repo.GetSpecificAsync(emotion => emotion.Id == id) ?? null!;
+            return await _repo.GetSpecificAsync(emotion => emotion.Content == content) ?? null!;
         }
 
         public async Task<IEnumerable<Emotion>> GetAllEmotionsAsync()
