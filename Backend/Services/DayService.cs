@@ -51,5 +51,19 @@ namespace Backend.Services
 
             return dayToAdd;
         }
+
+        public async Task<Day> GetDayAsync(int date, int month)
+        {
+             var response = await _repo.GetSpecificAsync(date, month);
+
+            if (response == null)
+            {
+                return new Day(){
+                    Emotions = []
+                };
+            }
+
+            return response;
+        }
     }
 }
