@@ -7,10 +7,12 @@ namespace Backend.Services
     public class RelationshipService
     {
         private readonly RelationshipRepo _repo;
+        private readonly EmotionService _emotionService;
 
-        public RelationshipService(RelationshipRepo repo)
+        public RelationshipService(RelationshipRepo repo, EmotionService emotionService)
         {
             _repo = repo;
+            _emotionService = emotionService;
         }
 
         public async Task<Relationship> CreateRelationshipAsync(RelationshipRequest relationshipReq)
@@ -24,7 +26,7 @@ namespace Backend.Services
 
             foreach (var emotion in relationshipReq.WantedEmotions)
             {
-                var emotionToAdd = await EmotionService.GetEmotionAsync(emotion);
+                var emotionToAdd = await _emotionService.GetEmotionAsync(emotion.Content);
                 if (emotionToAdd != null)
                 {
                     wantedEmotions.Add(emotionToAdd);
