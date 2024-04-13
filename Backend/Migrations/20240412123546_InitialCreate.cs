@@ -91,7 +91,6 @@ namespace Backend.Migrations
                     Date = table.Column<int>(type: "int", nullable: false),
                     Month = table.Column<int>(type: "int", nullable: false),
                     Score = table.Column<int>(type: "int", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RelationshipId = table.Column<int>(type: "int", nullable: true),
                     MonthId = table.Column<int>(type: "int", nullable: true)
                 },

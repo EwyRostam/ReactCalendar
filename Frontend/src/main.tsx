@@ -22,7 +22,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-      <TanStackRouterDevtools router={router} />
       <RelationshipContextProvider>
         <App />
       </RelationshipContextProvider>

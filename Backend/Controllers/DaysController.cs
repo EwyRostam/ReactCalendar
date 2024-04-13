@@ -23,7 +23,7 @@ namespace Backend.Controllers
         public async Task<ActionResult<Day>> CreateDay(DayRequest dayReq)
         {
             var score = 0;
-            dayReq.Emotions.ForEach(feeling => score += feeling.Value);
+            dayReq.Emotions!.ForEach(feeling => score += feeling.Value);
 
             var allEmotions = await _context.Emotions.ToListAsync();
 
