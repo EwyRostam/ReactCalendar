@@ -8,10 +8,14 @@ namespace Backend.Services
     public class DayService
     {
         private readonly DayRepo _repo;
+        private readonly EmotionService _emotionService;
+        private readonly MonthService _monthService;
 
-        public DayService(DayRepo repo)
+        public DayService(DayRepo repo, EmotionService emotionService, MonthService monthService)
         {
             _repo = repo;
+            _emotionService = emotionService;
+            _monthService = monthService;
         }
 
         public async Task<Day> CreateDayAsync(DayRequest dayReq)
@@ -19,7 +23,7 @@ namespace Backend.Services
             var score = 0;
             dayReq.Emotions!.ForEach(feeling => score += feeling.Value);
 
-            var allEmotions = await EmotionService.GetAllAsync();
+            var allEmotions = await _emotionService.GetAllEmotionsAsync();
 
             var emotions = new List<Emotion>();
             dayReq.Emotions.ForEach(feeling => emotions.Add(
@@ -34,7 +38,7 @@ namespace Backend.Services
                 Emotions = emotions,
                 Score = score
             };
-            var month = await MonthService.GetSpecificAsyn(dayToAdd.Month);
+            var month = await _monthService.GetMonthAsync(dayToAdd.Month);
 
 
             if (month == null)
@@ -43,7 +47,7 @@ namespace Backend.Services
                 {
                     MonthIndex = dayToAdd.Month
                 };
-                await MonthService.CreateMonthAsync(month);
+                await _monthService.CreateMonthAsync(month);
             }
 
 
@@ -54,7 +58,7 @@ namespace Backend.Services
 
         public async Task<Day> GetDayAsync(int date, int month)
         {
-             var response = await _repo.GetSpecificAsync(date, month);
+             var response = await _repo.GetSpecificAsync(day => day.Date == date && day.Month == month);
 
             if (response == null)
             {
