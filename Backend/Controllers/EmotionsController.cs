@@ -53,10 +53,10 @@ namespace Backend.Controllers
 
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Emotion>> GetEmotion(int id)
+        [HttpGet]
+        public async Task<ActionResult<Emotion>> GetEmotion(string content)
         {
-            var feeling = await _context.Emotions.FirstOrDefaultAsync(feeling => feeling.Id == id);
+            var feeling = await _context.Emotions.FirstOrDefaultAsync(feeling => feeling.Content == content);
             return feeling == null ? NoContent() : feeling;
         }
 
