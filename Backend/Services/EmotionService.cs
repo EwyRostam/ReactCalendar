@@ -41,6 +41,11 @@ namespace Backend.Services
        
         }
 
+        public async Task<Emotion> GetEmotionAsync(int id)
+        {
+            return await _repo.GetSpecificAsync(emotion => emotion.Id == id) ?? null!;
+        }
+
         public async Task<bool> EmotionExistsAsync(EmotionRequest emotionReq)
         {
             return await _repo.ExistsAsync(feeling => feeling.Content == emotionReq.Content);
