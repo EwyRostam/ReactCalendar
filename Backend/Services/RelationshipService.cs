@@ -50,5 +50,15 @@ namespace Backend.Services
         {
             return await _repo.GetAllAsync();
         }
+
+        public async Task<bool> DeleteRelationshipAsync(int id)
+        {
+            if(await _repo.ExistsAsync(rel => rel.Id == id))
+            {
+                await _repo.DeleteAsync(rel => rel.Id == id);
+                return true;
+            }
+            return false;
+        }
     }
 }
