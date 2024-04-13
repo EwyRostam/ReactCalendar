@@ -15,7 +15,7 @@ namespace Backend.Services
 
         public async Task<Relationship> CreateRelationshipAsync(RelationshipRequest relationshipReq)
         {
-             if (await _repo.ExistsAsync(rel => rel.Name == relationshipReq.Name))
+            if (await _repo.ExistsAsync(rel => rel.Name == relationshipReq.Name))
             {
                 return null!;
             }
@@ -38,7 +38,12 @@ namespace Backend.Services
                 WantedEmotions = wantedEmotions
             };
 
-          return relationship;
+            return relationship;
+        }
+
+        public async Task<Relationship> GetRelationshipAsync(int id)
+        {
+            return await _repo.GetSpecificAsync(rel => rel.Id == id);
         }
     }
 }
