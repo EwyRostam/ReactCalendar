@@ -61,6 +61,31 @@ namespace Backend.Repositories
                 
             }
         }
+
+        public class MonthRepo : Repo<Month>
+        {
+            private AppDBContext _context;
+
+            public MonthRepo(AppDBContext context) : base(context)
+            {
+                _context = context;
+            }
+
+            public override async Task<IEnumerable<Month>> GetAllAsync()
+            {
+                return await _context.Months
+                .Include(emotion => emotion.DaysInMonth)
+                .ToListAsync();
+            }
+
+            public override async Task<Month> GetSpecificAsync(Expression<Func<Month, bool>> predicate)
+            {
+                return await _context.Months
+                .Include(emotion => emotion.DaysInMonth)
+                .FirstOrDefaultAsync(predicate) ?? null!;
+                
+            }
+        }
         
     }
 }
