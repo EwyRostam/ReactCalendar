@@ -86,6 +86,35 @@ namespace Backend.Repositories
                 
             }
         }
+
+        public class RelationshipRepo : Repo<Relationship>
+        {
+            private AppDBContext _context;
+
+            public RelationshipRepo(AppDBContext context) : base(context)
+            {
+                _context = context;
+            }
+
+            public override async Task<IEnumerable<Relationship>> GetAllAsync()
+            {
+                return await _context.Relationships
+                .Include(emotion => emotion.Days)
+                .Include(emotion => emotion.Months)
+                .Include(emotion => emotion.WantedEmotions)
+                .ToListAsync();
+            }
+
+            public override async Task<Relationship> GetSpecificAsync(Expression<Func<Relationship, bool>> predicate)
+            {
+                return await _context.Relationships
+                .Include(emotion => emotion.Days)
+                .Include(emotion => emotion.Months)
+                .Include(emotion => emotion.WantedEmotions)
+                .FirstOrDefaultAsync(predicate) ?? null!;
+                
+            }
+        }
         
     }
 }
