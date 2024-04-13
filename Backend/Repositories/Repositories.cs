@@ -34,6 +34,33 @@ namespace Backend.Repositories
                 
             }
         }
+
+        public class EmotionRepo : Repo<Emotion>
+        {
+            private AppDBContext _context;
+
+            public EmotionRepo(AppDBContext context) : base(context)
+            {
+                _context = context;
+            }
+
+            public override async Task<IEnumerable<Emotion>> GetAllAsync()
+            {
+                return await _context.Emotions
+                .Include(emotion => emotion.Relationships)
+                .Include(emotion => emotion.Days)
+                .ToListAsync();
+            }
+
+            public override async Task<Emotion> GetSpecificAsync(Expression<Func<Emotion, bool>> predicate)
+            {
+                return await _context.Emotions
+                .Include(emotion => emotion.Relationships)
+                .Include(emotion => emotion.Days)
+                .FirstOrDefaultAsync(predicate) ?? null!;
+                
+            }
+        }
         
     }
 }
