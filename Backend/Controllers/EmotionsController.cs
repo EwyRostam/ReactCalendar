@@ -34,7 +34,7 @@ namespace Backend.Controllers
         [HttpGet("{content}")]
         public async Task<ActionResult<EmotionRequest>> GetEmotion(string content)
         {
-            var emotion = await _service.GetEmotionAsync(content);
+            var emotion = await _service.GetEmotionReqAsync(content);
             return emotion == null ? BadRequest() : emotion;
         }
 
@@ -42,7 +42,7 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EmotionRequest>>> GetAllEmotions()
         {
-            return Ok(await _service.GetAllEmotionsAsync());
+            return Ok(await _service.GetAllEmotionReqsAsync());
         }
     }
 }
