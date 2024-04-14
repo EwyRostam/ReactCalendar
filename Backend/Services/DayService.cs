@@ -89,7 +89,7 @@ namespace Backend.Services
             return await _repo.GetAllAsync();
         }
 
-        public async Task<IEnumerable<DayResponse>> GetAllDayResAsync()
+        public async Task<IEnumerable<DayResponse>> GetAllDayResponsesAsync()
         {
             var dayList = await GetAllDaysAsync();
             var dayResList = new List<DayResponse>();

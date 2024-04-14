@@ -27,15 +27,15 @@ namespace Backend.Controllers
         }
 
         [HttpGet("{date}/{month}")]
-        public async Task<ActionResult<DayRequest>> GetDay(int date, int month)
+        public async Task<ActionResult<DayResponse>> GetDay(int date, int month)
         {
-            return await _service.GetDayReqAsync(date, month);
+            return await _service.GetDayResAsync(date, month);
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DayRequest>>> GetAllDays()
+        public async Task<ActionResult<IEnumerable<DayResponse>>> GetAllDays()
         {
-            return Ok(await _service.GetAllDayReqsAsync());
+            return Ok(await _service.GetAllDayResponsesAsync());
         }
     
     }
