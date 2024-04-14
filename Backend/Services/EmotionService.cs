@@ -15,7 +15,7 @@ namespace Backend.Services
 
         public async Task<Emotion> CreateEmotionAsync(EmotionRequest emotionReq)
         {
-            
+
             var oppositeEmotion = await _repo.GetSpecificAsync(feeling => feeling.Content == emotionReq.Opposite);
 
             Emotion emotion = new Emotion()
@@ -38,12 +38,18 @@ namespace Backend.Services
             emotion.Opposite = oppositeEmotion.Content;
 
             return emotion;
-       
+
         }
 
-        public async Task<Emotion> GetEmotionAsync(string content)
+        public async Task<EmotionRequest> GetEmotionAsync(string content)
         {
-            return await _repo.GetSpecificAsync(emotion => emotion.Content == content) ?? null!;
+            var emotion = await _repo.GetSpecificAsync(emotion => emotion.Content == content) ?? null!;
+            return new EmotionRequest(
+               emotion.Content,
+               emotion.Opposite,
+               emotion.Value
+            );
+
         }
 
         public async Task<IEnumerable<Emotion>> GetAllEmotionsAsync()
