@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { DayReq, DayRes, getSpecificDay } from "../api/DaysAPI";
+import { DayReq, DayRes, getSpecificDay } from "../api/daysAPI/DaysAPI";
 import RenderEmotions from "./RenderEmotions";
 import DayComponent from "./DayComponent";
 import { Feeling } from "../api/EmotionsAPI";

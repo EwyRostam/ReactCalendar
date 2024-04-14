@@ -1,5 +1,5 @@
 import { DayData } from "../components/EmotionChart";
-import { DayType } from "./DaysAPI";
+import { DayType } from "./daysAPI/DaysAPI";
 
 const URL_BASE = "http://localhost:5236/Months";
 
