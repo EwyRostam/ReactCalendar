@@ -29,13 +29,13 @@ namespace Backend.Controllers
         [HttpGet("{date}/{month}")]
         public async Task<ActionResult<DayRequest>> GetDay(int date, int month)
         {
-            return await _service.GetDayAsync(date, month);
+            return await _service.GetDayReqAsync(date, month);
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DayRequest>>> GetAllDays()
         {
-            return Ok(await _service.GetAllDaysAsync());
+            return Ok(await _service.GetAllDayReqsAsync());
         }
     
     }
