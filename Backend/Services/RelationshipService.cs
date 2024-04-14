@@ -40,7 +40,7 @@ namespace Backend.Services
                 WantedEmotions = wantedEmotions
             };
 
-            return relationship;
+            return await _repo.CreateAsync(relationship);
         }
 
         public async Task<Relationship> GetRelationshipAsync(int id)
