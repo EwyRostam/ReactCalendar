@@ -1,8 +1,7 @@
-using Backend.Data;
 using Backend.Models.DTOs;
 using Backend.Models.Enteties;
+using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
@@ -10,61 +9,38 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class EmotionsController : ControllerBase
     {
-        private readonly AppDBContext _context;
+        private readonly EmotionService _service;
 
-        public EmotionsController(AppDBContext context)
+        public EmotionsController(EmotionService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [HttpPost]
         public async Task<ActionResult<Emotion>> CreateEmotion(EmotionRequest emotionReq)
         {
-            if(await _context.Emotions.AnyAsync(feeling => feeling.Content == emotionReq.Content))
+            if (await _service.EmotionExistsAsync(emotionReq))
             {
                 return BadRequest();
             }
-            
-            var oppositeEmotion = await _context.Emotions.FirstOrDefaultAsync(feeling => feeling.Content == emotionReq.Opposite);
 
-            Emotion emotion = new Emotion()
-            {
-                Content = emotionReq.Content,
-                Value = emotionReq.Value,
-                Opposite = ""
-            };
+            return await _service.CreateEmotionAsync(emotionReq);
 
-            if (oppositeEmotion == null)
-            {
-                oppositeEmotion = new Emotion()
-                {
-                    Content = emotionReq.Opposite,
-                    Value = emotionReq.Value > 0 ? -1 : 1,
-                    Opposite = emotion.Content,
-                };
-                await _context.Emotions.AddAsync(oppositeEmotion);
-            }
-            emotion.Opposite = oppositeEmotion.Content;
-
-
-            await _context.Emotions.AddAsync(emotion);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetEmotion), new { id = emotion.Id }, emotion);
 
         }
 
         [HttpGet]
         public async Task<ActionResult<Emotion>> GetEmotion(string content)
         {
-            var feeling = await _context.Emotions.FirstOrDefaultAsync(feeling => feeling.Content == content);
-            return feeling == null ? NoContent() : feeling;
+            var emotion = await _service.GetEmotionAsync(content);
+            return emotion == null ? BadRequest() : emotion;
         }
 
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Emotion>>> GetAllEmotions()
         {
-           return await _context.Emotions.ToListAsync();
+            return Ok(await _service.GetAllEmotionsAsync());
         }
     }
 }
