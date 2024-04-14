@@ -1,4 +1,4 @@
-import { Feeling } from "../api/EmotionsAPI";
+import { Feeling } from "../api/emotoinsAPI/EmotionsAPI";
 
 type Props = {
     feeling: Feeling;

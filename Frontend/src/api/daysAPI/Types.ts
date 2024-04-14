@@ -1,4 +1,4 @@
-import { Feeling } from "../EmotionsAPI";
+import { Feeling } from "../emotoinsAPI/EmotionsAPI";
 
 export type DayType = {
     date: number;

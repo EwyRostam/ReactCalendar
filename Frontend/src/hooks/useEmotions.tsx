@@ -1,5 +1,5 @@
 import { QueryObserver, useQuery, useQueryClient } from "react-query"
-import { Feeling, getAllEmotions } from "../api/EmotionsAPI"
+import { Feeling, getAllEmotions } from "../api/emotoinsAPI/EmotionsAPI"
 import { useEffect, useState } from "react"
 
 const key = 'emotions'
