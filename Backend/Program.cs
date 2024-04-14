@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
 using Backend.Data;
+using Backend.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -29,6 +30,11 @@ builder.Services.AddDbContext<AppDBContext>(options =>
     
 builder.Services.AddControllers().AddJsonOptions(x =>
 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
+builder.Services.AddScoped<DayService>();
+builder.Services.AddScoped<EmotionService>();
+builder.Services.AddScoped<MonthService>();
+builder.Services.AddScoped<RelationshipService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
