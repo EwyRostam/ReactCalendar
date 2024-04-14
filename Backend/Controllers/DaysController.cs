@@ -19,7 +19,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<DayRequest>> CreateDay(DayRequest dayReq)
+        public async Task<ActionResult<DayResponse>> CreateDay(DayRequest dayReq)
         {
           var day = await _service.CreateDayAsync(dayReq);
           return day == null ? BadRequest() :
