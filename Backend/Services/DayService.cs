@@ -38,6 +38,7 @@ namespace Backend.Services
                 Emotions = emotions,
                 Score = score
             };
+            await _repo.CreateAsync(dayToAdd);
             var month = await _monthService.GetMonthAsync(dayToAdd.Month);
 
 
