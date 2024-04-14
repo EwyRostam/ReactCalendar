@@ -41,9 +41,14 @@ namespace Backend.Services
 
         }
 
-        public async Task<EmotionRequest> GetEmotionAsync(string content)
+        public async Task<Emotion> GetEmotionAsync(string content)
         {
-            var emotion = await _repo.GetSpecificAsync(emotion => emotion.Content == content) ?? null!;
+            return await _repo.GetSpecificAsync(emotion => emotion.Content == content) ?? null!;
+        }
+
+        public async Task<EmotionRequest> GetEmotionReqAsync(string content)
+        {
+            var emotion = await GetEmotionAsync(content);
             return new EmotionRequest(
                emotion.Content,
                emotion.Opposite,
@@ -52,11 +57,16 @@ namespace Backend.Services
 
         }
 
-        public async Task<IEnumerable<EmotionRequest>> GetAllEmotionsAsync()
+        public async Task<IEnumerable<Emotion>> GetAllEmotionsAsync()
+        {
+            return await _repo.GetAllAsync();
+        }
+
+        public async Task<IEnumerable<EmotionRequest>> GetAllEmotionReqsAsync()
         {
             var returnList = new List<EmotionRequest>();
 
-            var emotions = await _repo.GetAllAsync();
+            var emotions = await GetAllEmotionsAsync();
 
             foreach (var emotion in emotions)
             {
