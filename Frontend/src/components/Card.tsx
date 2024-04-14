@@ -1,4 +1,4 @@
-import { Relationship } from "../api/RelationshipsAPI";
+import { Relationship } from "../api/relationshipsAPI/RelationshipsAPI";
 
 type Props = {
     rel: Relationship;
