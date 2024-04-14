@@ -52,6 +52,14 @@ namespace Backend.Repositories
                 .ToListAsync();
             }
 
+            public override async Task<Emotion> GetSpecificAsync(Expression<Func<Emotion, bool>> predicate)
+            {
+                return await _context.Emotions
+                .Include(emotion => emotion.Relationships)
+                .Include(emotion => emotion.Days)
+                .FirstOrDefaultAsync(predicate) ?? null!;
+                
+            }
         }
 
         public class MonthRepo : Repo<Month>

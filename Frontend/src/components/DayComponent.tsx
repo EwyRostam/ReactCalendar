@@ -30,7 +30,6 @@ export default function DayComponent({ date, month }: Props) {
     }
 
     if (allEmotions) {
-        console.log(allEmotions)
         filteredEmotions = allEmotions!
             .filter(e => e.content.toLowerCase().includes(searchInput) && !selectedEmotions.includes(e))
     }
