@@ -1,6 +1,7 @@
 using Backend.Data;
 using Backend.Models.DTOs;
 using Backend.Models.Enteties;
+using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,71 +11,38 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class RelationshipsController : ControllerBase
     {
-        private readonly AppDBContext _context;
+        private readonly RelationshipService _service;
 
-        public RelationshipsController(AppDBContext context)
+        public RelationshipsController(RelationshipService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [HttpPost]
         public async Task<ActionResult<Relationship>> CreateRelationship(RelationshipRequest relationshipReq)
         {
-            if (await _context.Relationships.AnyAsync(rel => rel.Name == relationshipReq.Name))
-            {
-                return BadRequest();
-            }
-
-            var wantedEmotions = new List<Emotion>();
-
-            foreach (var emotion in relationshipReq.WantedEmotions)
-            {
-                var emotionToAdd = await _context.Emotions.FirstOrDefaultAsync(feeling => feeling.Content == emotion.Content);
-                if (emotionToAdd != null)
-                {
-                    wantedEmotions.Add(emotionToAdd);
-                }
-            }
-
-            var relationship = new Relationship()
-            {
-                Name = relationshipReq.Name,
-                Category = relationshipReq.Category,
-                WantedEmotions = wantedEmotions
-            };
-
-            await _context.Relationships.AddAsync(relationship);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetRelationship), new { id = relationship.Id }, relationship);
-
+            var relationship = await _service.CreateRelationshipAsync(relationshipReq);
+            return relationship == null ? BadRequest() : CreatedAtAction(nameof(GetRelationship), new { id = relationship.Id }, relationship);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Relationship>> GetRelationship(int id)
         {
-            var relationship = await _context.Relationships
-            .Include(r => r.WantedEmotions)
-            .FirstOrDefaultAsync(relationship => relationship.Id == id);
-            return relationship == null ? NoContent() : relationship;
+            var relationship = await _service.GetRelationshipAsync(id);
+            return relationship == null ? BadRequest() : relationship;
         }
 
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Relationship>>> GetAllRelationships()
         {
-            return await _context.Relationships.Include(r => r.WantedEmotions).ToListAsync();
+            return Ok(await _service.GetAllRelationshipsAsync());
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRelationship(int id)
         {
-            var relationship = await _context.Relationships.Include(r => r.WantedEmotions)
-            .FirstOrDefaultAsync(relationship => relationship.Id == id);
-            if (relationship != null)
-            {
-                _context.Relationships.Remove(relationship);
-                await _context.SaveChangesAsync();
-            }
+            await _service.DeleteRelationshipAsync(id);
             return NoContent();
         }
     }
