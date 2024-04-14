@@ -17,30 +17,34 @@ export default function CompletedDay({ date, month }: Props) {
 
     const fetchedDay = async () => {
         const result = await getSpecificDay(dayReq)
-        const { emotions } = result as DayRes
-        const { $values } = emotions
-        return $values
+        return result
     }
 
-    const { data: emotions, isError, isLoading } = useQuery(['day', window.location.href], fetchedDay);
-    if (emotions && emotions.length > 0 ) {
+    const { data: result, isError, isLoading } = useQuery(['day', window.location.href], fetchedDay);
+
+   
+
+    if (result) {
+        const { emotions } = result as DayRes;
+        const { $values } = emotions;
         return (
             <section className="flex flex-col items-center p-2 gap-2">
                 {isLoading && <p>Loading...</p>}
-                {emotions && <><h1 className="text-3xl">Your feelings {date}/{month}</h1>
+                {$values.length > 0 && <><h1 className="text-3xl">Your feelings {date}/{month}</h1>
                     <article className="border border-black rounded-md w-60 h-48">
-                        <RenderEmotions emotions={emotions ?? []} />
+                        <RenderEmotions emotions={$values ?? []} />
                     </article>
-                    <article className="border border-black rounded-md w-60 h-48">
-
-                    </article>
-                    </>}
+                </>}
+                {result.content &&
+                    <article className="border border-black rounded-md w-60 h-48 p-2">
+                        {result.content}
+                    </article>}
             </section>
         )
 
     }
 
     return (
-        <DayComponent date={date} month={month}/>
+        <DayComponent date={date} month={month} />
     )
 }
