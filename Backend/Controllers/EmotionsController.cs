@@ -30,7 +30,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet("{content}")]
-        public async Task<ActionResult<Emotion>> GetEmotion(string content)
+        public async Task<ActionResult<EmotionRequest>> GetEmotion(string content)
         {
             var emotion = await _service.GetEmotionAsync(content);
             return emotion == null ? BadRequest() : emotion;
