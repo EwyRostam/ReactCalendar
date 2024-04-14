@@ -1,8 +1,8 @@
 import SearchBar from '../components/SearchBar'
 import RenderEmotions from '../components/RenderEmotions'
-import { useState } from 'react'
+import { LegacyRef, useRef, useState } from 'react'
 import { Feeling } from '../api/EmotionsAPI'
-import { DayType, createDay } from '../api/DaysAPI'
+import { DayReq, DayType, createDay } from '../api/DaysAPI'
 import { useGetEmotions } from '../hooks/useEmotions'
 import { Link } from '@tanstack/react-router'
 import SquareBtn from './SquareBtn'
@@ -21,6 +21,7 @@ export default function DayComponent({ date, month }: Props) {
     const allEmotions = useGetEmotions().data;
     const [selectedEmotions, setSelectedEmotions] = useState<Feeling[]>([]);
     const [searchInput, setSearchInput] = useState<string>("");
+    const [content, setContent] = useState<string>("");
     let filteredEmotions = allEmotions?.slice();
 
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -58,9 +59,11 @@ export default function DayComponent({ date, month }: Props) {
         sessionStorage.setItem("dayView", "hide");
     }
 
+    const contentRef = useRef<HTMLTextAreaElement>(null);
+
     const emotions = selectedEmotions;
 
-    const dayToCreate: DayType = { date, month, emotions };
+    const dayToCreate: DayReq = { date, month, emotions, content};
 
     const heading = format(new Date(year, month -1, date), 'PPP')
 
@@ -86,9 +89,13 @@ export default function DayComponent({ date, month }: Props) {
                         <h1 className="text-3xl">{heading}</h1>
                         <h2 className="text-2xl">How did you feel this day?</h2>
                         <SearchBar setSearchInput={setSearchInput} searchInput={searchInput} />
-                        <article className="border border-black rounded-md size-60">
+                        <article className="border border-black rounded-md w-60 h-48">
                             <RenderEmotions handleClick={onClickSelected} emotions={selectedEmotions} />
                         </article>
+                        <textarea ref={contentRef} onChange={() => setContent(contentRef.current!.value)}
+                        className="border border-black rounded-md w-60 h-48 p-2">
+
+                        </textarea>
                         <Link to="/" onClick={() => onCreate.mutate(dayToCreate)} className="btn btn-outline btn-success w-60">
                             Submit
                         </Link>

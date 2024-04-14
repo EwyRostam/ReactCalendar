@@ -8,8 +8,10 @@ export type DayType = {
 }
 
 export type DayReq = {
-    date: number, 
-    month: number
+    date: number; 
+    month: number; 
+    emotions: Feeling[];
+    content?: string;
 }
 
 export type DayRes = {
@@ -22,11 +24,12 @@ export type DayRes = {
 const URL_BASE = "http://localhost:5236/Days";
 const headers = {'Content-type': "application/json; charset=UTF-8"}
 
-export const createDay = async ({date, month, emotions}: DayType ): Promise<DayType> => {
+export const createDay = async ({date, month, emotions, content}: DayReq ): Promise<DayType> => {
     const body = JSON.stringify({
         date: date,
         month: month,
-        emotions: emotions
+        emotions: emotions,
+        content: content
     })
     const method = 'POST'
     const response = await (await fetch(URL_BASE, { body, method, headers })).json()
