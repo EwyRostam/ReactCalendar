@@ -1,5 +1,6 @@
 import { SyntheticEvent } from "react";
-import { Feeling, createEmotion } from "../api/emotoinsAPI/EmotionsAPI";
+import { createEmotion } from "../api/emotoinsAPI/EmotionsAPI";
+import { Feeling } from "../api/emotoinsAPI/Types";
 
 type CustomFormValues = {
     emotion: { value: string };

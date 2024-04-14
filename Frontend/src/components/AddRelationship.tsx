@@ -1,7 +1,8 @@
 import { SyntheticEvent, useState } from "react";
-import { Relationship, createRelationship } from "../api/relationshipsAPI/RelationshipsAPI";
+import {createRelationship } from "../api/relationshipsAPI/RelationshipsAPI";
 import EmotionPicker from "./EmotionPicker";
-import { Feeling } from "../api/emotoinsAPI/EmotionsAPI";
+import { Feeling } from "../api/emotoinsAPI/Types";
+import { Relationship } from "../api/relationshipsAPI/Types";
 
 type CustomFormValues = {
     relationshipName: { value: string };
