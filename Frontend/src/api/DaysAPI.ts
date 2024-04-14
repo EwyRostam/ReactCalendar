@@ -18,6 +18,7 @@ export type DayRes = {
     date: number;
     month: number;
     score?: number;
+    content?: string;
     emotions: {$values: Feeling[]}
 }
 

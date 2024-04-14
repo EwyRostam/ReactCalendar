@@ -28,9 +28,13 @@ export default function CompletedDay({ date, month }: Props) {
             <section className="flex flex-col items-center p-2 gap-2">
                 {isLoading && <p>Loading...</p>}
                 {emotions && <><h1 className="text-3xl">Your feelings {date}/{month}</h1>
-                    <article className="border border-black rounded-md size-60">
+                    <article className="border border-black rounded-md w-60 h-48">
                         <RenderEmotions emotions={emotions ?? []} />
-                    </article></>}
+                    </article>
+                    <article className="border border-black rounded-md w-60 h-48">
+
+                    </article>
+                    </>}
             </section>
         )
 
