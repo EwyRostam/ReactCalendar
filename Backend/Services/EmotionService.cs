@@ -37,8 +37,7 @@ namespace Backend.Services
             }
             emotion.Opposite = oppositeEmotion.Content;
 
-            return emotion;
-
+            return await _repo.CreateAsync(emotion);
         }
 
         public async Task<Emotion> GetEmotionAsync(string content)
