@@ -36,6 +36,7 @@ namespace Backend.Services
                 Date = dayReq.Date,
                 Month = dayReq.Month,
                 Emotions = emotions,
+                Content = dayReq.Content,
                 Score = score
             };
             await _repo.CreateAsync(dayToAdd);
