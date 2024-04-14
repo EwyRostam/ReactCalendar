@@ -1,5 +1,6 @@
 using Backend.Data;
 using Backend.Models.Enteties;
+using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,21 +10,17 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class MonthsController : ControllerBase
     {
-        private AppDBContext _context;
-
-        public MonthsController(AppDBContext context)
+        private readonly MonthService _service;
+        public MonthsController(MonthService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [HttpGet("{monthIndex}")]
         public async Task<ActionResult<Month>> GetMonth(int monthIndex)
         {
-            var monthToReturn = await _context.Months
-            .Include(m => m.DaysInMonth)
-            .FirstOrDefaultAsync(month => month.MonthIndex == monthIndex);
-
-           return monthToReturn == null ? BadRequest() : monthToReturn;
+            var month = await _service.GetMonthAsync(monthIndex);
+            return month == null ? BadRequest() : month;
         }
     }
 }
