@@ -71,7 +71,7 @@ namespace Backend.Services
             return response;
         }
 
-        public async Task<DayRequest> GetDayReqAsync(int date, int month)
+        public async Task<DayResponse> GetDayResAsync(int date, int month)
         {
             var day = await GetDayAsync(date, month);
             var emotionReqList = new List<EmotionRequest>();
@@ -81,7 +81,7 @@ namespace Backend.Services
                 emotionReqList.Add(new EmotionRequest(e.Content, e.Opposite, e.Value));
             }
 
-            return new DayRequest(day.Date, day.Month, day.Content, emotionReqList);
+            return new DayResponse(day.Date, day.Month, day.Score, day.Content, emotionReqList);
         }
 
         public async Task<IEnumerable<Day>> GetAllDaysAsync()
@@ -89,16 +89,16 @@ namespace Backend.Services
             return await _repo.GetAllAsync();
         }
 
-        public async Task<IEnumerable<DayRequest>> GetAllDayReqsAsync()
+        public async Task<IEnumerable<DayResponse>> GetAllDayResAsync()
         {
             var dayList = await GetAllDaysAsync();
-            var dayReqList = new List<DayRequest>();
+            var dayResList = new List<DayResponse>();
 
             foreach (var day in dayList)
             {
-                dayReqList.Add(await GetDayReqAsync(day.Date, day.Month));
+                dayResList.Add(await GetDayResAsync(day.Date, day.Month));
             }
-            return dayReqList;
+            return dayResList;
         }
     }
 }
