@@ -18,7 +18,6 @@ export function Calendar() {
     const { data: registeredDays } = useQuery(['days', window.location.href], getAllDays);
 
     if (registeredDays) {
-        console.log(registeredDays)
 
         const daysList = registeredDays!.slice();
 
@@ -26,7 +25,6 @@ export function Calendar() {
             const value = daysList[i].score! > 0 ? "bg-green-400 hover:bg-green-500" : "bg-red-400 hover:bg-red-500";
             color.set(daysList[i].date, value);
         }
-        console.log(color)
     }
 
 
