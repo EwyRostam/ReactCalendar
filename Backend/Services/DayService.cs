@@ -18,7 +18,7 @@ namespace Backend.Services
             _monthService = monthService;
         }
 
-        public async Task<Day> CreateDayAsync(DayRequest dayReq)
+        public async Task<DayResponse> CreateDayAsync(DayRequest dayReq)
         {
             var score = 0;
             dayReq.Emotions!.ForEach(feeling => score += feeling.Value);
@@ -53,7 +53,7 @@ namespace Backend.Services
 
             month.DaysInMonth.Add(dayToAdd);
 
-            return dayToAdd;
+            return new DayResponse(dayToAdd.Date, dayToAdd.Month, dayToAdd.Score, dayToAdd.Content, dayReq.Emotions);
         }
 
         public async Task<Day> GetDayAsync(int date, int month)
