@@ -24,7 +24,9 @@ namespace Backend.Controllers
                 return BadRequest();
             }
 
-            return await _service.CreateEmotionAsync(emotionReq);
+            var emotion = await _service.CreateEmotionAsync(emotionReq);
+
+            return CreatedAtAction(nameof(GetEmotion), new {content = emotion.Content}, emotion);
 
 
         }
@@ -38,7 +40,7 @@ namespace Backend.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Emotion>>> GetAllEmotions()
+        public async Task<ActionResult<IEnumerable<EmotionRequest>>> GetAllEmotions()
         {
             return Ok(await _service.GetAllEmotionsAsync());
         }

@@ -52,9 +52,18 @@ namespace Backend.Services
 
         }
 
-        public async Task<IEnumerable<Emotion>> GetAllEmotionsAsync()
+        public async Task<IEnumerable<EmotionRequest>> GetAllEmotionsAsync()
         {
-            return await _repo.GetAllAsync();
+            var returnList = new List<EmotionRequest>();
+
+            var emotions = await _repo.GetAllAsync();
+
+            foreach (var emotion in emotions)
+            {
+                returnList.Add(new EmotionRequest(emotion.Content, emotion.Opposite, emotion.Value));
+            }
+
+            return returnList;
         }
 
         public async Task<bool> EmotionExistsAsync(EmotionRequest emotionReq)
