@@ -63,7 +63,7 @@ export default function DayComponent({ date, month }: Props) {
 
     const emotions = selectedEmotions;
 
-    const dayToCreate: DayReq = { date, month, emotions, content};
+    const dayToCreate: DayType = { date, month, emotions, content};
 
     const heading = format(new Date(year, month -1, date), 'PPP')
 

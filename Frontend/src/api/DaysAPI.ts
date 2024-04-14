@@ -5,13 +5,13 @@ export type DayType = {
     month: number;
     emotions: Feeling[];
     score?: number;
+    content?: string;
+
 }
 
 export type DayReq = {
     date: number; 
     month: number; 
-    emotions: Feeling[];
-    content?: string;
 }
 
 export type DayRes = {
@@ -24,7 +24,7 @@ export type DayRes = {
 const URL_BASE = "http://localhost:5236/Days";
 const headers = {'Content-type': "application/json; charset=UTF-8"}
 
-export const createDay = async ({date, month, emotions, content}: DayReq ): Promise<DayType> => {
+export const createDay = async ({date, month, emotions, content}: DayType ): Promise<DayType> => {
     const body = JSON.stringify({
         date: date,
         month: month,
