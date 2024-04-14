@@ -1,9 +1,7 @@
-using Backend.Data;
 using Backend.Models.DTOs;
 using Backend.Models.Enteties;
 using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
@@ -21,20 +19,21 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Day>> CreateDay(DayRequest dayReq)
+        public async Task<ActionResult<DayRequest>> CreateDay(DayRequest dayReq)
         {
           var day = await _service.CreateDayAsync(dayReq);
-          return day == null ? BadRequest() : day;
+          return day == null ? BadRequest() :
+          CreatedAtAction(nameof(GetDay), new{date = day.Date, month = day.Month}, day);  
         }
 
         [HttpGet("{date}/{month}")]
-        public async Task<ActionResult<Day>> GetDay(int date, int month)
+        public async Task<ActionResult<DayRequest>> GetDay(int date, int month)
         {
             return await _service.GetDayAsync(date, month);
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Day>>> GetAllDays()
+        public async Task<ActionResult<IEnumerable<DayRequest>>> GetAllDays()
         {
             return Ok(await _service.GetAllDaysAsync());
         }
