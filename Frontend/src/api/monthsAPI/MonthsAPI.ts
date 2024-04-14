@@ -1,16 +1,8 @@
-import { DayData } from "../components/EmotionChart";
-import { DayType } from "./daysAPI/DaysAPI";
+import { MonthReq, MonthRes } from "./Types";
 
 const URL_BASE = "http://localhost:5236/Months";
 
-export type MonthReq = {
-  monthIndex: number;
-};
 
-export type MonthRes = {
-  monthIndex: number;
-  daysInMonth: { $values: DayData[] };
-};
 
 export const getSpecificMonth = async ({monthIndex}: MonthReq): Promise<MonthRes> => {
   const response = await fetch(URL_BASE + `/${monthIndex}`).then((result) =>

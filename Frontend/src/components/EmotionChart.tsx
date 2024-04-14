@@ -1,5 +1,5 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { MonthReq, MonthRes, getSpecificMonth } from '../api/MonthsAPI';
+import { MonthReq, MonthRes, getSpecificMonth } from '../api/monthsAPI/MonthsAPI';
 import { monthAsNumber } from '../helpers/DateHelpers';
 import { useQuery } from 'react-query';
 
