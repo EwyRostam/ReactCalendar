@@ -6,7 +6,7 @@ namespace Backend.Models.DTOs
     (
         string Name,
         string Category,
-        List<EmotionRequest> WantedEmotions
+        List<EmotionDTO> WantedEmotions
     );
 
 }
