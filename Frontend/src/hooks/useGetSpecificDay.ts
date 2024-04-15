@@ -7,7 +7,7 @@ const fetchedDay = async (dayReq : DayReq) => {
     return result
 }
 
-const useGetSpecificDay = (dayReq : DayReq) => { 
+export const useGetSpecificDay = (dayReq : DayReq) => { 
     return useQuery({
     queryKey: ['day', window.location.href], 
     queryFn: () => fetchedDay(dayReq)}

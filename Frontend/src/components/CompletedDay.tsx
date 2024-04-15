@@ -1,8 +1,8 @@
-import { DayReq, DayRes, getSpecificDay } from "../api/daysAPI/DaysAPI";
 import RenderEmotions from "./RenderEmotions";
 import DayComponent from "./DayComponent";
-import { Feeling } from "../api/emotoinsAPI/EmotionsAPI";
-import { useQuery } from "@tanstack/react-query";
+import { useGetSpecificDay } from "../hooks/useGetSpecificDay";
+import { DayReq, DayRes } from "../api/daysAPI/Types";
+import { Feeling } from "../api/emotoinsAPI/Types";
 
 type Props = {
     date: number;
@@ -15,15 +15,7 @@ export default function CompletedDay({ date, month }: Props) {
 
     const dayReq: DayReq = { date, month };
 
-
-    const fetchedDay = async () => {
-        const result = await getSpecificDay(dayReq)
-        return result
-    }
-
-    const { data: result, isError, isLoading } = useQuery({
-        queryKey: ['day', window.location.href], 
-        queryFn: fetchedDay});
+    const { data: result, isError, isLoading } = useGetSpecificDay(dayReq);
 
     let emotionsList : Feeling[] = [];
     if (result) {
