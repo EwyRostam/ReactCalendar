@@ -6,6 +6,6 @@ namespace Backend.Models.DTOs
         string Name,
         string? Category,
         List<MonthResponse> Months,
-        List<EmotionRequest> WantedEmotions
+        List<EmotionDTO> WantedEmotions
     );
 }
