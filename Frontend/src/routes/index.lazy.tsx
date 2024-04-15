@@ -1,9 +1,8 @@
 import { Navigate, createLazyFileRoute } from '@tanstack/react-router'
 import { monthAsNumber, today } from '../helpers/DateHelpers';
 import { Calendar } from '../components/Calendar'
-import { getSpecificDay } from '../api/daysAPI/DaysAPI';
-import { DayReq, DayRes } from '../api/daysAPI/Types';
-import { useQuery } from 'react-query';
+import { DayReq } from '../api/daysAPI/Types';
+import { useGetSpecificDay } from '../hooks/useGetSpecificDay';
 
 export const Route = createLazyFileRoute('/')({
   component: Index,
@@ -47,24 +46,15 @@ export default function Index() {
   const dayReq: DayReq = { date, month };
 
 
-  const fetchedDay = async () => {
-    const result = await getSpecificDay(dayReq)
-    const { emotions } = result as DayRes
-    const { $values } = emotions
-    return $values
-}
+  const { data: day } = useGetSpecificDay(dayReq);
 
-const { data: emotions} = useQuery(
-  {queryKey: ['day'], 
-  queryFn: fetchedDay});
-  
 
-const dayView = sessionStorage.getItem("dayView");
-  
+  const dayView = sessionStorage.getItem("dayView");
 
-  if (!emotions && !dayView) {
+
+  if (!day && !dayView) {
     return (
-      <Navigate to="/day" search={{date: date, month: month}}/>
+      <Navigate to="/day" search={{ date: date, month: month }} />
     )
   }
 
