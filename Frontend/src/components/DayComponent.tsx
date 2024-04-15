@@ -19,11 +19,9 @@ type Props = {
 
 
 export default function DayComponent({ date, month }: Props) {
-    const allEmotions = useGetEmotions().data;
     const [selectedEmotions, setSelectedEmotions] = useState<Feeling[]>([]);
     const [searchInput, setSearchInput] = useState<string>("");
     const [content, setContent] = useState<string>("");
-    let filteredEmotions = allEmotions?.slice();
 
     const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -31,6 +29,8 @@ export default function DayComponent({ date, month }: Props) {
         setShowModal(!showModal);
     }
 
+    const allEmotions = useGetEmotions().data;
+    let filteredEmotions = allEmotions?.slice();
     if (allEmotions) {
         filteredEmotions = allEmotions!
             .filter(e => e.content.toLowerCase().includes(searchInput) && !selectedEmotions.includes(e))
