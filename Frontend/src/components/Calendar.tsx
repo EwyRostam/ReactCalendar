@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Weekdays } from '../configs/Weekdays'
 import CalenderDate from './CalenderDate';
-import { daysBeforeMonth, daysInMonth, month, today } from '../helpers/DateHelpers';
+import { daysBeforeMonth, daysInMonth, month} from '../helpers/DateHelpers';
 import { getAllDays } from '../api/daysAPI/DaysAPI';
 import CalendarLine from './CalendarLine';
 import { useQuery } from 'react-query';
