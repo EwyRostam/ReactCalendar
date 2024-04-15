@@ -57,6 +57,7 @@ export default function Index() {
 const { data: emotions} = useQuery(
   {queryKey: ['day'], 
   queryFn: fetchedDay});
+  
 
 const dayView = sessionStorage.getItem("dayView");
   
