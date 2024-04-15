@@ -1,4 +1,4 @@
-import { Feeling } from "../api/emotoinsAPI/EmotionsAPI";
+import { Feeling } from "../api/emotoinsAPI/Types";
 
 type Props = {
     feeling: Feeling;
@@ -7,7 +7,6 @@ type Props = {
     ) => void
 
 }
-
 
 export default function Emotion({ feeling, handleClick }: Props) {
     const color = feeling.value > 0 ? "bg-green-400 hover:bg-green-500" : "bg-red-400 hover:bg-red-500";
