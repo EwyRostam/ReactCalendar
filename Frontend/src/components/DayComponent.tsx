@@ -8,6 +8,9 @@ import AddEmotions from './AddEmotions'
 import { format } from 'date-fns'
 import { year } from '../helpers/DateHelpers'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Feeling } from '../api/emotoinsAPI/Types'
+import { createDay } from '../api/daysAPI/DaysAPI'
+import { DayType } from '../api/daysAPI/Types'
 
 type Props = {
     date: number;
@@ -35,7 +38,10 @@ export default function DayComponent({ date, month }: Props) {
 
     const queryClient = useQueryClient();
 
-    const onCreate = useMutation(createDay, {
+    const onCreate = useMutation({
+        mutationFn: (day: DayType) => {
+            return createDay(day);
+        },
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['days']})
         },
