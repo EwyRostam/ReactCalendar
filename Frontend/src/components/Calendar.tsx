@@ -3,8 +3,8 @@ import { Weekdays } from '../configs/Weekdays'
 import CalenderDate from './CalenderDate';
 import { daysBeforeMonth, daysInMonth, month, today } from '../helpers/DateHelpers';
 import { getAllDays } from '../api/daysAPI/DaysAPI';
-import { useQuery } from 'react-query';
 import CalendarLine from './CalendarLine';
+import { useQuery } from '@tanstack/react-query';
 
 
 let monthWithColors: Map<number, string> = new Map();
@@ -15,7 +15,9 @@ export function Calendar() {
     const [color] = useState<Map<number, string>>(monthWithColors);
     const [selectedDate, setSelectedDate] = useState<number>(today);
 
-    const { data: registeredDays } = useQuery(['days', window.location.href], getAllDays);
+    const { data: registeredDays } = useQuery({
+        queryKey :['days', window.location.href], 
+        queryFn: getAllDays});
 
     if (registeredDays) {
 

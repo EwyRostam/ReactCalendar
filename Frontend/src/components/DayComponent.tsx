@@ -9,7 +9,7 @@ import SquareBtn from './SquareBtn'
 import AddEmotions from './AddEmotions'
 import { format } from 'date-fns'
 import { year } from '../helpers/DateHelpers'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 type Props = {
     date: number;

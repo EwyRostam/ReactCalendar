@@ -1,7 +1,7 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { MonthReq, MonthRes, getSpecificMonth } from '../api/monthsAPI/MonthsAPI';
 import { monthAsNumber } from '../helpers/DateHelpers';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 export type DayData = {
   date: number;
@@ -20,7 +20,9 @@ export default function EmotionChart() {
     return $values
   }
 
-  const daysArray = useQuery('month', fetchedMonth).data
+  const daysArray = useQuery({
+    queryKey: ['month'], 
+    queryFn: fetchedMonth}).data
 
   let data;
   if(daysArray)
