@@ -5,7 +5,7 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { routeTree } from './routeTree.gen.ts'
 import './index.css'
 import { RelationshipContextProvider } from './app-context/relationship-context-provider.tsx'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 const router = createRouter({ routeTree })
 const queryClient = new QueryClient();

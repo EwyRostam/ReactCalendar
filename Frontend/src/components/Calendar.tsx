@@ -4,7 +4,7 @@ import CalenderDate from './CalenderDate';
 import { daysBeforeMonth, daysInMonth, month, today } from '../helpers/DateHelpers';
 import { getAllDays } from '../api/daysAPI/DaysAPI';
 import CalendarLine from './CalendarLine';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from 'react-query';
 
 
 let monthWithColors: Map<number, string> = new Map();

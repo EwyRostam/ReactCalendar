@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import { getSpecificDay } from "../api/daysAPI/DaysAPI";
 import { DayReq } from "../api/daysAPI/Types";
 

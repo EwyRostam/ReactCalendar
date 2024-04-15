@@ -10,7 +10,7 @@ type Props = {
 export const Route = createLazyFileRoute('/day')({
   validateSearch: (day: Record<string, unknown>): Props => {
     return {
-      date: day.date as number, 
+      date: day.date as number,
       month: day.month as number
     };
   },
@@ -21,10 +21,12 @@ export const Route = createLazyFileRoute('/day')({
 
 export default function Day() {
 
-  const {date, month} : Props = Route.useSearch();
+  const { date, month }: Props = Route.useSearch();
 
-return(
-  <CompletedDay date={date} month={month}/>
-)
+  return (
+    <>
+      <CompletedDay date={date} month={month} />
+    </>
+  )
 
 }

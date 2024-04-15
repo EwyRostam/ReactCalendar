@@ -3,7 +3,7 @@ import { monthAsNumber, today } from '../helpers/DateHelpers';
 import { Calendar } from '../components/Calendar'
 import { getSpecificDay } from '../api/daysAPI/DaysAPI';
 import { DayReq, DayRes } from '../api/daysAPI/Types';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from 'react-query';
 
 export const Route = createLazyFileRoute('/')({
   component: Index,
