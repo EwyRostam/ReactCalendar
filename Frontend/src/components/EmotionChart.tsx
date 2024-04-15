@@ -1,8 +1,8 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { getSpecificMonth } from '../api/monthsAPI/MonthsAPI';
 import { monthAsNumber } from '../helpers/DateHelpers';
-import { useQuery } from '@tanstack/react-query';
 import { MonthReq, MonthRes } from '../api/monthsAPI/Types';
+import { useQuery } from 'react-query';
 
 export type DayData = {
   date: number;
