@@ -1,6 +1,8 @@
 namespace Backend.Models.DTOs
 {
-    public class MonthResponse
-    {
-    }
+    public record MonthResponse
+    (
+        int MonthIndex,
+        List<DayResponse> DaysInMonth
+    );
 }
