@@ -9,7 +9,7 @@ type Props = {
     setEmotions: React.Dispatch<React.SetStateAction<Feeling[]>>;
 }
 
-export default function EmotionPicker({ setEmotions, emotions }: Props) {
+export default function WantedEmotionsPicker({ setEmotions, emotions }: Props) {
     const allEmotions = useGetEmotions().data;
     const [searchInput, setSearchInput] = useState<string>("");
     let filteredEmotions;
