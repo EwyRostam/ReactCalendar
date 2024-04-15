@@ -13,7 +13,6 @@ daysInMonth.map((day) => monthWithColors.set(day, ""));
 
 export function Calendar() {
     const [color] = useState<Map<number, string>>(monthWithColors);
-    const [selectedDate, setSelectedDate] = useState<number>(today);
 
     const { data: registeredDays } = useQuery({
         queryKey :['days', window.location.href], 
@@ -48,7 +47,7 @@ export function Calendar() {
                     ))}
 
                     {[...color.keys()].map((thisDate) => {
-                        return <CalenderDate date={thisDate} color={color} key={thisDate} handleClick={setSelectedDate} selected={selectedDate} />
+                        return <CalenderDate date={thisDate} color={color} key={thisDate} />
                     })
                     }
                 </div>
