@@ -1,8 +1,8 @@
 import { useState } from "react";
 import RenderEmotions from "./RenderEmotions";
 import SearchBar from "./SearchBar";
-import { Feeling } from "../api/emotoinsAPI/EmotionsAPI";
 import { useGetEmotions } from "../hooks/useEmotions";
+import { Feeling } from "../api/emotoinsAPI/Types";
 
 type Props = {
     emotions: Feeling[];
