@@ -1,8 +1,8 @@
 import RenderEmotions from "./RenderEmotions";
 import DayComponent from "./DayComponent";
 import { useGetSpecificDay } from "../hooks/useGetSpecificDay";
-import { DayReq, DayRes } from "../api/daysAPI/Types";
-import { Feeling } from "../api/emotoinsAPI/Types";
+import { DayReq } from "../api/daysAPI/Types";
+import { getEmotionsList } from "../helpers/FilterDayHelpers";
 
 type Props = {
     date: number;
@@ -17,12 +17,7 @@ export default function CompletedDay({ date, month }: Props) {
 
     const { data: result, isError, isLoading } = useGetSpecificDay(dayReq);
 
-    let emotionsList : Feeling[] = [];
-    if (result) {
-        const { emotions } = result as DayRes;
-        const { $values } = emotions;
-        emotionsList = $values;
-    }
+    const emotionsList = getEmotionsList(result);
 
     if (emotionsList.length > 0) {
         return (
