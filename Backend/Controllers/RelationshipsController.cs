@@ -19,10 +19,11 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Relationship>> CreateRelationship(RelationshipRequest relationshipReq)
+        public async Task<ActionResult<RelationshipResponse>> CreateRelationship(RelationshipRequest relationshipReq)
         {
             var relationship = await _service.CreateRelationshipAsync(relationshipReq);
-            return relationship == null ? BadRequest() : CreatedAtAction(nameof(GetRelationship), new { id = relationship.Id }, relationship);
+            var relationshipResponse = await _service.GetRelationshipResponseAsync(relationship.Id);
+            return relationship == null ? BadRequest() : CreatedAtAction(nameof(GetRelationship), new { id = relationship.Id }, relationshipResponse);
         }
 
         [HttpGet("{id}")]
