@@ -54,16 +54,15 @@ namespace Backend.Services
         {
             var relationship = await _repo.GetSpecificAsync(rel => rel.Id == id);
 
-              var days = relationship.Months
+              var days = await Task
+                .WhenAll(relationship.Months
                 .Select(m => m.DaysInMonth)
                 .SelectMany(dayList => dayList)
                 .Select(day => _dayService
-                    .GetDayResAsync(day.Date, day.Month));
+                    .GetDayResAsync(day.Date, day.Month)));
 
                 var dayList = new List<DayResponse>();
-
-                var gotDays = await Task.WhenAll(days);
-                foreach (var day in gotDays)
+                foreach (var day in days)
                 {
                     dayList.Add(day);
                 }
