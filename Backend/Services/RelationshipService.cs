@@ -87,10 +87,11 @@ namespace Backend.Services
         public async Task<IEnumerable<RelationshipResponse>> GetAllRelationshipsAsync()
         {
             var relationships = await _repo.GetAllAsync();
-            return await Task
+            var relationshipResponses = await Task
             .WhenAll(relationships
             .Select(r => GetRelationshipResponseAsync(r.Id)));
 
+            return relationshipResponses;
         }
 
         public async Task DeleteRelationshipAsync(int id)

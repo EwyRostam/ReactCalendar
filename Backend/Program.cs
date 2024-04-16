@@ -27,7 +27,8 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddDbContext<AppDBContext>(options =>
-    options.UseSqlServer(config.GetConnectionString("AppDBContext") ?? throw new InvalidOperationException("Connection string 'AppDBContext' not found.")));
+    options.UseSqlServer(config.GetConnectionString("AppDBContext") ?? 
+    throw new InvalidOperationException("Connection string 'AppDBContext' not found.")));
     
 builder.Services.AddControllers().AddJsonOptions(x =>
 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
