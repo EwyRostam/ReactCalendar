@@ -8,11 +8,13 @@ namespace Backend.Services
     {
         private readonly RelationshipRepo _repo;
         private readonly EmotionService _emotionService;
+        private readonly DayService _dayService;
 
-        public RelationshipService(RelationshipRepo repo, EmotionService emotionService)
+        public RelationshipService(RelationshipRepo repo, EmotionService emotionService, DayService dayService)
         {
             _repo = repo;
             _emotionService = emotionService;
+            _dayService = dayService;
         }
 
         public async Task<Relationship> CreateRelationshipAsync(RelationshipRequest relationshipReq)
@@ -48,14 +50,57 @@ namespace Backend.Services
             return await _repo.GetSpecificAsync(rel => rel.Id == id);
         }
 
-        public async Task<IEnumerable<Relationship>> GetAllRelationshipsAsync()
+        public async Task<IEnumerable<RelationshipResponse>> GetAllRelationshipsAsync()
         {
-            return await _repo.GetAllAsync();
+            var relationships = await _repo.GetAllAsync();
+            var relResponses = new List<RelationshipResponse>();
+
+            foreach (var rel in relationships)
+            {
+                // var days = new List<DayResponse>();
+                var days = rel.Months
+                .Select(m => m.DaysInMonth)
+                .SelectMany(dayList => dayList)
+                .Select(day => _dayService
+                    .GetDayResAsync(day.Date, day.Month));
+
+                var dayList = new List<DayResponse>();
+
+                var gotDays = await Task.WhenAll(days);
+                foreach (var day in gotDays)
+                {
+                    dayList.Add(day);
+                }
+
+                var months = rel.Months
+                .Select(m =>
+                new MonthResponse(m.MonthIndex, dayList)).ToList();
+
+                var wantedEmotionsTask = await Task.WhenAll(rel.WantedEmotions.Select(e => _emotionService
+                .GetEmotionReqAsync(e.Content)));
+
+                var wantedEmotions = new List<EmotionDTO>();
+                foreach(var emotion in wantedEmotionsTask)
+                {
+                    wantedEmotions.Add(emotion);
+                }
+
+                var relResponse = new RelationshipResponse(
+                    rel.CreatedAt,
+                    rel.Name,
+                    rel.Category,
+                    months,
+                    wantedEmotions
+                    );
+                relResponses.Add(relResponse);
+            }
+
+            return relResponses;
         }
 
         public async Task DeleteRelationshipAsync(int id)
         {
-            if(await _repo.ExistsAsync(rel => rel.Id == id))
+            if (await _repo.ExistsAsync(rel => rel.Id == id))
             {
                 await _repo.DeleteAsync(rel => rel.Id == id);
             }
