@@ -1,15 +1,15 @@
 import { useState } from "react";
 import RenderEmotions from "./RenderEmotions";
 import SearchBar from "./SearchBar";
-import { Feeling } from "../api/EmotionsAPI";
 import { useGetEmotions } from "../hooks/useEmotions";
+import { Feeling } from "../api/emotoinsAPI/Types";
 
 type Props = {
     emotions: Feeling[];
     setEmotions: React.Dispatch<React.SetStateAction<Feeling[]>>;
 }
 
-export default function EmotionPicker({ setEmotions, emotions }: Props) {
+export default function WantedEmotionsPicker({ setEmotions, emotions }: Props) {
     const allEmotions = useGetEmotions().data;
     const [searchInput, setSearchInput] = useState<string>("");
     let filteredEmotions;

@@ -6,7 +6,7 @@ namespace Backend.Models.DTOs
          int Month,
          int Score,
          string? Content, 
-         List<EmotionRequest>? Emotions
+         List<EmotionDTO>? Emotions
     );
     
         

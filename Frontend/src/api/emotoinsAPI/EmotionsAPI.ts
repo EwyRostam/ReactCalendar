@@ -1,8 +1,5 @@
-export type Feeling = {
-    content: string;
-    value: number;
-    opposite: string;
-}
+import { Feeling } from "./Types";
+
 
 const URL_BASE = "http://localhost:5236/Emotions";
 const headers = {'Content-type': "application/json; charset=UTF-8"}

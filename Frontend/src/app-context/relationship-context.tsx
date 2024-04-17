@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { Relationship } from "../api/RelationshipsAPI";
+import { Relationship } from "../api/relationshipsAPI/RelationshipsAPI";
 
 export interface AppState {
     relationship?: Relationship

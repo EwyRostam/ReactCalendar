@@ -17,7 +17,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Emotion>> CreateEmotion(EmotionRequest emotionReq)
+        public async Task<ActionResult<Emotion>> CreateEmotion(EmotionDTO emotionReq)
         {
             if (await _service.EmotionExistsAsync(emotionReq))
             {
@@ -32,7 +32,7 @@ namespace Backend.Controllers
         }
 
         [HttpGet("{content}")]
-        public async Task<ActionResult<EmotionRequest>> GetEmotion(string content)
+        public async Task<ActionResult<EmotionDTO>> GetEmotion(string content)
         {
             var emotion = await _service.GetEmotionReqAsync(content);
             return emotion == null ? BadRequest() : emotion;
@@ -40,7 +40,7 @@ namespace Backend.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EmotionRequest>>> GetAllEmotions()
+        public async Task<ActionResult<IEnumerable<EmotionDTO>>> GetAllEmotions()
         {
             return Ok(await _service.GetAllEmotionReqsAsync());
         }

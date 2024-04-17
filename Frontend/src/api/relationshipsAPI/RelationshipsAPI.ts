@@ -1,11 +1,4 @@
-import { Feeling } from "./EmotionsAPI";
-
-export type Relationship = {
-    id?: number;
-    name?: string;
-    category?: string;
-    wantedEmotions?: Feeling[];
-}
+import { Relationship } from "./Types";
 
 const URL_BASE = "http://localhost:5236/Relationships";
 const headers = {'Content-type': "application/json; charset=UTF-8"}

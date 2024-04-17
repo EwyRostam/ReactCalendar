@@ -13,7 +13,7 @@ namespace Backend.Services
             _repo = repo;
         }
 
-        public async Task<Emotion> CreateEmotionAsync(EmotionRequest emotionReq)
+        public async Task<Emotion> CreateEmotionAsync(EmotionDTO emotionReq)
         {
 
             var oppositeEmotion = await _repo.GetSpecificAsync(feeling => feeling.Content == emotionReq.Opposite);
@@ -45,10 +45,10 @@ namespace Backend.Services
             return await _repo.GetSpecificAsync(emotion => emotion.Content == content) ?? null!;
         }
 
-        public async Task<EmotionRequest> GetEmotionReqAsync(string content)
+        public async Task<EmotionDTO> GetEmotionReqAsync(string content)
         {
             var emotion = await GetEmotionAsync(content);
-            return new EmotionRequest(
+            return new EmotionDTO(
                emotion.Content,
                emotion.Opposite,
                emotion.Value
@@ -61,21 +61,21 @@ namespace Backend.Services
             return await _repo.GetAllAsync();
         }
 
-        public async Task<IEnumerable<EmotionRequest>> GetAllEmotionReqsAsync()
+        public async Task<IEnumerable<EmotionDTO>> GetAllEmotionReqsAsync()
         {
-            var returnList = new List<EmotionRequest>();
+            var returnList = new List<EmotionDTO>();
 
             var emotions = await GetAllEmotionsAsync();
 
             foreach (var emotion in emotions)
             {
-                returnList.Add(new EmotionRequest(emotion.Content, emotion.Opposite, emotion.Value));
+                returnList.Add(new EmotionDTO(emotion.Content, emotion.Opposite, emotion.Value));
             }
 
             return returnList;
         }
 
-        public async Task<bool> EmotionExistsAsync(EmotionRequest emotionReq)
+        public async Task<bool> EmotionExistsAsync(EmotionDTO emotionReq)
         {
             return await _repo.ExistsAsync(feeling => feeling.Content == emotionReq.Content);
         }

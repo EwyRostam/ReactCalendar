@@ -1,18 +1,22 @@
-import { Relationship } from "../api/RelationshipsAPI";
 
 type Props = {
-    rel: Relationship;
-    handleClick: (rel: Relationship) => void;
+    button: React.ReactNode;
+    content: React.ReactNode;
 }
-
-export default function Card({rel, handleClick}: Props) {
+export default function Card({button, content}: Props) {
 
     return (
-        <div className="card h-40 w-96 bg-base-100 shadow-xl drop-shadow-md transition-transform hover:scale-105" onClick={() => handleClick(rel)}>
-        <div className="card-body flex justify-center items-center">
-            <h1 className="text-3xl">{rel.name}</h1>
-        </div>
-    </div>
+        <section className="flex justify-center bg-background">
+            <div className="card w-96 bg-base-100 shadow-xl">
+                <div className="card-body">
+                    <div className="card-actions justify-end">
+                        {button}
+                    </div>
+                   {content}
+                </div>
+            </div>
+        </section>
+
     )
-   
+
 }

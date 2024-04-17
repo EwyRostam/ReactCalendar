@@ -1,6 +1,6 @@
 import Emotion from "./Emotion"
 import { useGetEmotions } from "../hooks/useEmotions";
-import { Feeling } from "../api/EmotionsAPI";
+import { Feeling } from "../api/emotoinsAPI/Types";
 
 type Props = {
     emotions: Feeling[];

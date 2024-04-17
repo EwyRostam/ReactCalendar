@@ -76,11 +76,11 @@ namespace Backend.Services
         public async Task<DayResponse> GetDayResAsync(int date, int month)
         {
             var day = await GetDayAsync(date, month);
-            var emotionReqList = new List<EmotionRequest>();
+            var emotionReqList = new List<EmotionDTO>();
 
             foreach (var e in day.Emotions)
             {
-                emotionReqList.Add(new EmotionRequest(e.Content, e.Opposite, e.Value));
+                emotionReqList.Add(new EmotionDTO(e.Content, e.Opposite, e.Value));
             }
 
             return new DayResponse(day.Date, day.Month, day.Score, day.Content, emotionReqList);
