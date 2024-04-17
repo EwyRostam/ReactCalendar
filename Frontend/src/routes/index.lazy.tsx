@@ -16,26 +16,16 @@ export const Route = createLazyFileRoute('/')({
 
 
 export default function Index() {
-  const [selectedRelationship, setSelectedRelationship] = useState<Relationship>();
-
 
   const stored = sessionStorage.getItem("storedRelationship");
-  if (stored) {
-    const keyAsInt = parseInt(stored);
-    const restoreSelected = async () => {
-      const result = await getSpecificRelationship(keyAsInt)
-      setSelectedRelationship(result);
-    }
-    restoreSelected();
-  }
+ 
 
   const handleClick = (rel: Relationship) => {
-    setSelectedRelationship(rel);
     sessionStorage.setItem("storedRelationship", `${rel.id}`)
   }
   const { data, isLoading, isError } = useQuery('relationships', getAllRelationships);
 
-  if (selectedRelationship == null) {
+  if (stored == null) {
     console.log(data)
     return (
       <div className="h-screen flex flex-col items-center gap-4 lg:flex-row lg:justify-center">
