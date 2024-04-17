@@ -20,12 +20,12 @@ export default function Index() {
  
 
   const handleClick = (rel: Relationship) => {
+    console.log(rel.id);
     sessionStorage.setItem("storedRelationship", `${rel.id}`)
   }
   const { data, isLoading, isError } = useQuery('relationships', getAllRelationships);
 
   if (stored == null) {
-    console.log(data)
     return (
       <div className="h-screen flex flex-col items-center gap-4 lg:flex-row lg:justify-center">
         {isLoading && <p>Loading...</p>}
