@@ -2,6 +2,7 @@ namespace Backend.Models.DTOs
 {
     public record RelationshipResponse
     (
+        int Id,
         string CreatedAt,
         string Name,
         string? Category,
