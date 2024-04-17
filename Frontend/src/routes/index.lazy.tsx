@@ -24,6 +24,8 @@ export default function Index() {
     sessionStorage.setItem("storedRelationship", `${rel.id}`)
   }
   const { data, isLoading, isError } = useQuery('relationships', getAllRelationships);
+  console.log(data);
+
 
   if (stored == null) {
     return (
