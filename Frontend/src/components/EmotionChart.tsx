@@ -50,7 +50,7 @@ export default function EmotionChart() {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="score" stroke="#8884d8" activeDot={{ r: 8 }} />
+          <Line type="monotone" dataKey="score" stroke="#8884d8" strokeWidth={10} dot={false} />
         </LineChart>
       </ResponsiveContainer>
     </section>
