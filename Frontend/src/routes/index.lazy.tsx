@@ -7,6 +7,7 @@ import { Relationship } from '../api/relationshipsAPI/Types';
 import { getAllRelationships } from '../api/relationshipsAPI/RelationshipsAPI';
 import { useQuery } from 'react-query';
 import RelCard from '../components/RelCard';
+import { useState } from 'react';
 
 export const Route = createLazyFileRoute('/')({
   component: Index,
@@ -15,7 +16,7 @@ export const Route = createLazyFileRoute('/')({
 
 
 export default function Index() {
-
+  const [activeRelationship, setActiveRelationship] = useState<string>("");
   const stored = sessionStorage.getItem("storedRelationship");
  
 
