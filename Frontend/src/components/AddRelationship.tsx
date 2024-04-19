@@ -2,7 +2,7 @@ import { SyntheticEvent, useState } from "react";
 import {createRelationship } from "../api/relationshipsAPI/RelationshipsAPI";
 import EmotionPicker from "./EmotionPicker";
 import { Feeling } from "../api/emotoinsAPI/Types";
-import { Relationship } from "../api/relationshipsAPI/Types";
+import { RelationshipRequest } from "../api/relationshipsAPI/Types";
 
 type CustomFormValues = {
     relationshipName: { value: string };
@@ -18,7 +18,7 @@ export default function AddRelationship() {
         const name = relationshipName.value;
         const wantedEmotions = emotionsList;
         const category = categoryName.value;
-        const relationship: Relationship = { name, category, wantedEmotions }
+        const relationship: RelationshipRequest = { name, category, wantedEmotions }
         createRelationship(relationship);
         console.log("Relationship to post: ", relationship)
     }

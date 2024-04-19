@@ -8,3 +8,10 @@ export type Relationship = {
     months: MonthRes[];
     wantedEmotions?: Feeling[];
 }
+
+export type RelationshipRequest = {
+    id?: number;
+    name?: string;
+    category?: string;
+    wantedEmotions?: Feeling[];
+}

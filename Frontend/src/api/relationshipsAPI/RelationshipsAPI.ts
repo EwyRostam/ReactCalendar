@@ -1,9 +1,9 @@
-import { Relationship } from "./Types";
+import { Relationship, RelationshipRequest } from "./Types";
 
 const URL_BASE = "http://localhost:5236/Relationships";
 const headers = {'Content-type': "application/json; charset=UTF-8"}
 
-export const createRelationship = async ({name, category, wantedEmotions} :Relationship ): Promise<Relationship> => {
+export const createRelationship = async ({name, category, wantedEmotions} :RelationshipRequest ): Promise<Relationship> => {
     const body = JSON.stringify({
         name: name,
         category: category,
