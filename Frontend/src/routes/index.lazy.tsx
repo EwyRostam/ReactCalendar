@@ -16,13 +16,14 @@ export const Route = createLazyFileRoute('/')({
 
 
 export default function Index() {
-  const [activeRelationship, setActiveRelationship] = useState<string>("");
+  const [activeRelationship, setActiveRelationship] = useState<number | undefined>();
   const stored = sessionStorage.getItem("storedRelationship");
  
 
   const handleClick = (rel: Relationship) => {
     console.log(rel.id);
     sessionStorage.setItem("storedRelationship", `${rel.id}`)
+    setActiveRelationship(rel.id);
   }
   const { data, isLoading, isError } = useQuery('relationships', getAllRelationships);
   console.log(data);
