@@ -53,7 +53,7 @@ export default function Index() {
   }
 
 
-  if (emotionsList.length < 0 || !dayView) {
+  if (emotionsList.length < 0 && !dayView) {
     return (
       <Navigate to="/day" search={{ date: date, month: month }} />
     )
