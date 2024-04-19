@@ -23,7 +23,19 @@ export function Calendar() {
         const daysList = registeredDays!.slice();
 
         for (let i = 0; i < daysList.length; i++) {
-            const value = daysList[i].score! > 0 ? "bg-green-400 hover:bg-green-500" : "bg-red-400 hover:bg-red-500";
+            const value =
+                  daysList[i].score! < -4 ? "bg-negative-500"
+                : daysList[i].score! == -4 ? "bg-negative-400"
+                : daysList[i].score! == -3 ? "bg-negative-300"
+                : daysList[i].score! == -2 ? "bg-negative-200"
+                : daysList[i].score! == -1 ? "bg-negative-100"
+                : daysList[i].score! == 0 ? "bg-positive-50"
+                : daysList[i].score! == 1 ? "bg-positive-100"
+                : daysList[i].score! == 2 ? "bg-positive-200"
+                : daysList[i].score! == 3 ? "bg-positive-300"
+                : daysList[i].score! == 4 ? "bg-positive-400"
+                : "bg-positive-500"
+
             color.set(daysList[i].date, value);
         }
     }

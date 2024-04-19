@@ -6,7 +6,7 @@ type Props = {
     color: Map<number, string>;
 }
 export default function CalenderDate({ date, color}: Props) {
-    const border = today == date ? "border border-orange-400" : "";
+    const border = today == date ? "border border-black hover:border-white" : "";
 
     return (
         <>
