@@ -32,7 +32,7 @@ export default function EmotionChart() {
     }
 
   return (
-    <section className="h-80">
+    <section className="h-80 mt-40">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           width={500}

@@ -8,9 +8,8 @@ export const Route = createLazyFileRoute('/overview')({
 export default function Overview () {
 
   return(
-    <>
-    <EmotionChart/>
-    </>
+    
+    <EmotionChart/>    
 
   )
 }
