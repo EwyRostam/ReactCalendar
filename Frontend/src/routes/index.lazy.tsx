@@ -17,41 +17,16 @@ export const Route = createLazyFileRoute('/')({
 
 
 export default function Index() {
-  const [activeRelationship, setActiveRelationship] = useState<number | undefined>();
-  const stored = sessionStorage.getItem("storedRelationship");
- 
-  const { data, isLoading, isError } = useQuery('relationships', getAllRelationships);
 
   const date = today;
   const month = monthAsNumber
   const dayReq: DayReq = { date, month };
 
-
   const { data: day } = useGetSpecificDay(dayReq);
 
   const emotionsList = getEmotionsList(day);
 
-
   const dayView = sessionStorage.getItem("dayView");
-
-
-  const handleClick = (rel: Relationship) => {
-    sessionStorage.setItem("storedRelationship", `${rel.id}`)
-    setActiveRelationship(rel.id);
-  }
-
-
-  if (stored == null) {
-    return (
-      <div className="h-screen flex flex-col items-center gap-4 lg:flex-row lg:justify-center">
-        {isLoading && <p>Loading...</p>}
-        {isError && <p>An error ocurred...</p>}
-        {data && data.map(rel =>
-          <RelCard rel={rel} key={rel.id} handleClick={handleClick} />)}
-      </div>
-    )
-  }
-
 
   if (emotionsList.length < 0 && !dayView) {
     return (
@@ -59,7 +34,7 @@ export default function Index() {
     )
   }
 
-  
+
   return (
     <div className="bg-background h-screen">
       <Calendar />
