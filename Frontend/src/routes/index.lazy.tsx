@@ -18,7 +18,6 @@ export default function Index() {
   const dayReq: DayReq = { date, month };
 
   const { data: day } = useGetSpecificDay(dayReq);
-
   const emotionsList = getEmotionsList(day);
 
   const dayView = sessionStorage.getItem("dayView");
@@ -28,7 +27,6 @@ export default function Index() {
       <Navigate to="/day" search={{ date: date, month: month }} />
     )
   }
-
 
   return (
     <div className="bg-background h-screen">
