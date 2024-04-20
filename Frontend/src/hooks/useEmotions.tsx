@@ -9,30 +9,30 @@ export const useGetEmotions = () => {
     return useQuery([key], getAllEmotions)
 }
 
-export const useGetEmotionsObserver = () => {
-    const get_emotions = useGetEmotions();
+// export const useGetEmotionsObserver = () => {
+//     const get_emotions = useGetEmotions();
 
-    const queryClient = useQueryClient();
+//     const queryClient = useQueryClient();
 
-    const [emotions, setEmotions] = useState<Feeling[]>(() => {
-        const data = queryClient.getQueryData<Feeling[]>([key])
-        return data ?? []
-    })
+//     const [emotions, setEmotions] = useState<Feeling[]>(() => {
+//         const data = queryClient.getQueryData<Feeling[]>([key])
+//         return data ?? []
+//     })
 
-    useEffect(() => {
-        const observer = new QueryObserver<Feeling[]>(queryClient, {queryKey: [key]})
+//     useEffect(() => {
+//         const observer = new QueryObserver<Feeling[]>(queryClient, {queryKey: [key]})
 
-        const unsubscribe = observer.subscribe(result => {
-            if (result.data) setEmotions(result.data)
-        })
+//         const unsubscribe = observer.subscribe(result => {
+//             if (result.data) setEmotions(result.data)
+//         })
 
-        return () => {
-            unsubscribe()
-        }
-    }, [])
+//         return () => {
+//             unsubscribe()
+//         }
+//     }, [])
 
-    return {
-        ...get_emotions,
-        data: emotions,
-    }
-}
+//     return {
+//         ...get_emotions,
+//         data: emotions,
+//     }
+// }
