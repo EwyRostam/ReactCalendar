@@ -3,11 +3,6 @@ import { monthAsNumber, today } from '../helpers/DateHelpers';
 import { Calendar } from '../components/Calendar'
 import { DayReq } from '../api/daysAPI/Types';
 import { useGetSpecificDay } from '../hooks/useGetSpecificDay';
-import { Relationship } from '../api/relationshipsAPI/Types';
-import { getAllRelationships } from '../api/relationshipsAPI/RelationshipsAPI';
-import { useQuery } from 'react-query';
-import RelCard from '../components/RelCard';
-import { useState } from 'react';
 import { getEmotionsList } from '../helpers/FilterDayHelpers';
 
 export const Route = createLazyFileRoute('/')({
