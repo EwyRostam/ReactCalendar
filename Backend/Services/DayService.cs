@@ -40,18 +40,7 @@ namespace Backend.Services
                 Score = score
             };
             await _repo.CreateAsync(dayToAdd);
-            var month = await _monthService.GetMonthAsync(dayToAdd.Month);
-
-
-            if (month == null)
-            {
-                month = new Month()
-                {
-                    MonthIndex = dayToAdd.Month
-                };
-                await _monthService.CreateMonthAsync(month);
-            }
-
+            var month = await _monthService.CreateMonthAsync(dayToAdd.Month);
 
             month.DaysInMonth.Add(dayToAdd);
 
