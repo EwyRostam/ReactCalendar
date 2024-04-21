@@ -19,8 +19,10 @@ export default function Index() {
 
   const { data: day } = useGetSpecificDay(dayReq);
   const emotionsList = getEmotionsList(day);
+  console.log(emotionsList);
 
   const dayView = sessionStorage.getItem("dayView");
+  console.log(dayView);
 
   if (emotionsList.length < 0 && !dayView) {
     return (

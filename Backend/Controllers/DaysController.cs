@@ -37,6 +37,12 @@ namespace Backend.Controllers
         {
             return Ok(await _service.GetAllDayResponsesAsync());
         }
-    
+
+        [HttpPatch]
+
+        public async Task<ActionResult<Day>> UpdateDay(DayRequest dayReq)
+        {
+
+        }    
     }
 }
