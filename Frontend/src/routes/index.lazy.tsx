@@ -1,5 +1,5 @@
 import { Navigate, createLazyFileRoute } from '@tanstack/react-router'
-import { monthAsNumber, today } from '../helpers/DateHelpers';
+import { monthAsNumber, numberOfDays, today } from '../helpers/DateHelpers';
 import { Calendar } from '../components/Calendar'
 import { DayReq } from '../api/daysAPI/Types';
 import { useGetSpecificDay } from '../hooks/useGetSpecificDay';

@@ -3,7 +3,7 @@ import { MonthReq, MonthRes } from "./Types";
 const URL_BASE = "http://localhost:5236/Months";
 const headers = {'Content-type': "application/json; charset=UTF-8"}
 
-export const getSpecificMonth = async ({monthIndex}: MonthReq): Promise<MonthRes> => {
+export const getSpecificMonth = async (monthIndex: number): Promise<MonthRes> => {
   const response = await fetch(URL_BASE + `/${monthIndex}`).then((result) =>
     result.json()
   );
