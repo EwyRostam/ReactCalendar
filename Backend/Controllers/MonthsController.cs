@@ -26,8 +26,8 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Month>> CreateMonth(int monthIndex)
         {
-            var month = await _service.GetMonthAsync(monthIndex);
-            return month == null ? BadRequest() : month;
+            var month = await _service.CreateMonthAsync(monthIndex);
+            return CreatedAtAction(nameof(GetMonth), new {monthIndex = month.MonthIndex}, month);
         }
     }
 }
