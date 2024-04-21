@@ -12,9 +12,14 @@ namespace Backend.Services
             _repo = repo;
         }
 
-        public async Task<Month> CreateMonthAsync(Month month)
+        public async Task<Month> CreateMonthAsync(int monthIndex)
         {
-            return await _repo.CreateAsync(month);
+            if(!await _repo.ExistsAsync(month => month.MonthIndex == monthIndex))
+            {
+                var month = new Month(){MonthIndex = monthIndex};
+                return await _repo.CreateAsync(month);
+            }
+            return await GetMonthAsync(monthIndex);
         }
 
         public async Task<Month> GetMonthAsync(int monthIndex)

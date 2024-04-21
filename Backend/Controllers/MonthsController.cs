@@ -22,5 +22,12 @@ namespace Backend.Controllers
             var month = await _service.GetMonthAsync(monthIndex);
             return month == null ? BadRequest() : month;
         }
+
+        [HttpPost]
+        public async Task<ActionResult<Month>> CreateMonth(int monthIndex)
+        {
+            var month = await _service.GetMonthAsync(monthIndex);
+            return month == null ? BadRequest() : month;
+        }
     }
 }
