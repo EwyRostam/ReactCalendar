@@ -18,9 +18,11 @@ export default function Index() {
   const date = today;
   const month = monthAsNumber
   const dayReq: DayReq = { date, month };
-  const monthReq: MonthReq = {monthIndex: month, numberOfDays};
 
-  date == 1 ? createMonth(monthReq) :
+  if (date == 1) {
+    const monthReq: MonthReq = { monthIndex: month, numberOfDays };
+    createMonth(monthReq);
+  }
 
   const { data: day } = useGetSpecificDay(dayReq);
   const emotionsList = getEmotionsList(day);
