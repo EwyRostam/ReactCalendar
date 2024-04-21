@@ -1,7 +1,7 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { getSpecificMonth } from '../api/monthsAPI/MonthsAPI';
 import { monthAsNumber } from '../helpers/DateHelpers';
-import { MonthReq, MonthRes } from '../api/monthsAPI/Types';
+import { MonthRes } from '../api/monthsAPI/Types';
 import { useQuery } from 'react-query';
 
 export type DayData = {
@@ -12,10 +12,9 @@ export type DayData = {
 
 export default function EmotionChart() {
   const monthIndex: number = monthAsNumber;
-  const month: MonthReq = { monthIndex }
 
   const fetchedMonth = async () => {
-    const result = await getSpecificMonth(month)
+    const result = await getSpecificMonth(monthIndex)
     const { daysInMonth } = result as MonthRes
     const { $values } = daysInMonth
     return $values
