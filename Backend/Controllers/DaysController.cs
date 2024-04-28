@@ -41,7 +41,8 @@ namespace Backend.Controllers
         [HttpDelete("{date}/{month}")]
         public async Task<IActionResult> DeleteDay(int date, int month)
         {
-            return await _service.GetDayResAsync(date, month);
+            await _service.DeleteAsync(date, month);
+            return NoContent();
         }
 
     }

@@ -96,7 +96,7 @@ namespace Backend.Services
         {
             if(await _repo.ExistsAsync(day => day.Date == date && day.Month == month))
             {
-                await _repo.DeleteAsync(day => day.Date == date && day.Month == month)
+                await _repo.DeleteAsync(day => day.Date == date && day.Month == month);
             }
         }
     }
