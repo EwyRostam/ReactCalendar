@@ -31,7 +31,7 @@ export default function Index() {
   const dayView = sessionStorage.getItem("dayView");
   console.log(dayView);
 
-  if (emotionsList.length < 0 && !dayView) {
+  if (emotionsList.length < 1 && dayView == null) {
     return (
       <Navigate to="/day" search={{ date: date, month: month }} />
     )
